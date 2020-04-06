@@ -41,7 +41,7 @@ const {
   WINDOW_MIN_HEIGHT,
 } = require('../constants');
 const Config = require('./utils/conf');
-const {debounce, hasOwnProp, getOwnProp} = require('./utils/helpers');
+const {debounce, hasOwnProp, getOwnProp, isDarkModeEnabled} = require('./utils/helpers');
 
 const {PLUGIN_PATH} = utils.paths;
 const {
@@ -274,6 +274,19 @@ const contextMenu = Menu.buildFromTemplate([
   },
   {type: 'separator'},
   {
+    label: 'Connect to Google Account',
+    type: 'normal',
+  },
+  {
+    label: 'Connect to Slack Account',
+    type: 'normal',
+  },
+  {
+    label: 'Connect to Dropbox Account',
+    type: 'normal',
+  },
+  {type: 'separator'},
+  {
     label: 'Quit',
     type: 'normal',
     click: () => {
@@ -327,7 +340,7 @@ const onAppReady = () => {
   // loads the tray
   tray = new Tray(
     nativeImage.createFromPath(
-      path.resolve(__dirname, '..', '..', 'resources', 'icon.png')
+      path.resolve(__dirname, '..', '..', 'resources', isDarkModeEnabled ? 'icon-dark-mode.png' : 'icon.png')
     )
   );
 
@@ -346,6 +359,7 @@ const onAppReady = () => {
       const indexPath = `file://${rendererPath}/index.html`;
 
       win.loadURL(indexPath);
+      win.setMenu(contextMenu);
       win.on('closed', () => {
         win = null;
       });
@@ -401,8 +415,8 @@ const onAppReady = () => {
     })
     .then((ipcConfig) => {
       registerIpcListeners(ipcConfig);
-      if (IS_DEV)
-        ipcConfig.registeredWindow.webContents.openDevTools({detach: true});
+      /*if (IS_DEV)
+        ipcConfig.registeredWindow.webContents.openDevTools({detach: true});*/
     });
 };
 

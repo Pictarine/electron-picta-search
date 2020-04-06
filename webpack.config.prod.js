@@ -8,6 +8,7 @@ const plugins = [
     (c) Copyright 2018. Vu Tran
     Website: https://github.com/DextApp/dext/
     Developer: Vu Tran <vu@vu-tran.com>
+    Forked by Pictarine Inc.
   `),
 ];
 

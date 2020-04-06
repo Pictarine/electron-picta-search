@@ -1,3 +1,5 @@
+const {remote} = require('electron');
+
 /**
  * Prevent a function from being called multiple times
  * repeatedly within a short time frame.
@@ -49,8 +51,19 @@ const hasOwnProp = (obj, path) => {
   return v !== undefined;
 };
 
+const isDarkModeEnabled = () => {
+  if (process.platform === 'darwin') {
+    const { systemPreferences } = remote;
+    return systemPreferences.isDarkMode();
+  }
+
+  return false;
+}
+
+
 module.exports = {
   debounce,
   getOwnProp,
   hasOwnProp,
+  isDarkModeEnabled,
 };

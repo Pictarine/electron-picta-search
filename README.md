@@ -6,6 +6,8 @@ Fork from https://github.com/DextApp/dext
 
 * Update all dep
 * Update BrowserWindow to load node content
+* Add Dark Mode for icon in status bar (will create a new icon after)
+* Add new status bar menu items to connect 3rd parties account
 
 ## Incoming
 
