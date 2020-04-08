@@ -2,9 +2,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {style, compose, hover} from 'glamor';
 import IconWrapper from '../icon-wrapper';
+const { isDarkModeEnabled } = require('../../../../main/utils/helpers');
 
 const activeStyle = {
-  backgroundColor: '#3f93fe',
+  backgroundColor: isDarkModeEnabled ? '#223C5B' : '#3f93fe',
   color: '#ffffff',
 };
 
@@ -13,7 +14,7 @@ const baseHover = hover(activeStyle);
 const base = compose(
   style({
     display: 'flex',
-    color: '#333',
+    color: isDarkModeEnabled ? '#fff' : '#333',
     boxSizing: 'border-box',
     height: 60,
     margin: 0,
@@ -53,7 +54,9 @@ const subtitle = style({
   overflow: 'hidden',
   fontSize: 12,
   fontWeight: 'normal',
-  margin: 0,
+  margin: '6, 0, 0, 0',
+  fontStyle: 'italic',
+  opacity: '0.8',
   WebkitBoxOrient: 'vertical',
   WebkitLineClamp: 1,
 });

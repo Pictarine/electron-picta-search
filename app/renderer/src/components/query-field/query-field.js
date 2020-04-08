@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { ipcRenderer } from 'electron';
-import { compose, style } from 'glamor';
-import { IPC_WINDOW_SHOW, IPC_WINDOW_HIDE } from '../../../../ipc';
+import {ipcRenderer} from 'electron';
+import {compose, style} from 'glamor';
+import {IPC_WINDOW_SHOW, IPC_WINDOW_HIDE} from '../../../../ipc';
+
+const {isDarkModeEnabled} = require('../../../../main/utils/helpers');
 
 const base = style({
   paddingTop: 15,
@@ -19,8 +21,9 @@ const search = style({
   backgroundColor: 'transparent',
   border: 0,
   boxSizing: 'border-box',
-  fontSize: 35,
+  fontSize: 30,
   marginBottom: 0,
+  color: isDarkModeEnabled ? '#FFF' : '#000',
   // paddingBottom: 15,
   outline: 0,
   overflow: 'visible',
@@ -41,6 +44,7 @@ class QueryField extends React.Component {
     theme: {},
   };
   queryField = null;
+
   componentDidMount() {
     ipcRenderer.on(IPC_WINDOW_SHOW, () => {
       this.focus();
@@ -70,21 +74,22 @@ class QueryField extends React.Component {
   attachQueryField = queryField => {
     this.queryField = queryField;
   };
+
   render() {
     const baseStyle =
       this.props.theme && this.props.theme.searchBase
         ? compose(
-            base,
-            this.props.theme.searchBase
-          )
+        base,
+        this.props.theme.searchBase
+        )
         : base;
 
     const styles =
       this.props.theme && this.props.theme.search
         ? compose(
-            search,
-            this.props.theme.search
-          )
+        search,
+        this.props.theme.search
+        )
         : search;
 
     return (
@@ -93,6 +98,7 @@ class QueryField extends React.Component {
           ref={this.attachQueryField}
           onChange={this.handleChange}
           value={this.props.query}
+          placeholder={'Looking for something?'}
           {...styles}
         />
       </div>

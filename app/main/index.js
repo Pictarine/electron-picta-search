@@ -415,8 +415,8 @@ const onAppReady = () => {
     })
     .then((ipcConfig) => {
       registerIpcListeners(ipcConfig);
-      if (IS_DEV)
-        ipcConfig.registeredWindow.webContents.openDevTools({detach: true});
+      /*if (IS_DEV)
+        ipcConfig.registeredWindow.webContents.openDevTools({detach: true});*/
     });
 };
 

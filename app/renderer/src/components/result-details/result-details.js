@@ -3,6 +3,7 @@ import React from 'react';
 import { ipcRenderer } from 'electron';
 import { compose, pseudo, style } from 'glamor';
 import { IPC_ITEM_DETAILS_RESPONSE } from '../../../../constants';
+const { isDarkModeEnabled } = require('../../../../main/utils/helpers');
 
 class ResultDetails extends React.PureComponent {
   static displayName = 'ResultDetails';

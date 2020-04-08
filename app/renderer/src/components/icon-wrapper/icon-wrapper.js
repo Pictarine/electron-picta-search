@@ -1,20 +1,37 @@
-import { ipcRenderer } from 'electron';
+import {ipcRenderer} from 'electron';
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import { compose, style } from 'glamor';
-import { IPC_FETCH_ICON, IPC_RETRIEVE_ICON } from '../../../../ipc';
+import React, {Component} from 'react';
+import {compose, style} from 'glamor';
+import {IPC_FETCH_ICON, IPC_RETRIEVE_ICON} from '../../../../ipc';
+
+const {isDarkModeEnabled} = require('../../../../main/utils/helpers');
 
 const iconImg = style({
   maxWidth: 40,
   maxHeight: 40,
+  dislay: 'block',
+  boxShadow: '0px 10px -14px 14px #FFF',
+  position: 'absolute',
+  left: '50%',
+  top: '50%',
+  transform: 'translate(-50%, -50%)',
 });
+
+const containerImg = style({
+  width: 40,
+  height: 40,
+  minWidth: 40,
+  minHeight: 40,
+  position: 'relative',
+  backgroundColor: isDarkModeEnabled ? '#FFF' : 'transparent',
+})
 
 const iconImgTextBase = compose(
   iconImg,
   style({
     display: 'block',
-    backgroundColor: '#888',
-    color: '#fff',
+    backgroundColor: isDarkModeEnabled ? '#F2F2F2' : '#888',
+    color: isDarkModeEnabled ? '#000' : '#fff',
     textDecoration: 'none',
     textAlign: 'center',
     width: 40,
@@ -29,12 +46,12 @@ const iconImgTextBase = compose(
 const Icon = props => {
   const iconTextStyle = props.icon.bgColor
     ? compose(
-        iconImgTextBase,
-        props.icon.bgColor &&
-          style({
-            backgroundColor: props.icon.bgColor,
-          })
-      )
+      iconImgTextBase,
+      props.icon.bgColor &&
+      style({
+        backgroundColor: props.icon.bgColor,
+      })
+    )
     : iconImgTextBase;
 
   switch (props.icon.type) {
@@ -46,7 +63,9 @@ const Icon = props => {
       );
     default:
       return (
-        <img {...iconImg} src={props.icon.path} role="presentation" alt="" />
+        <div {...containerImg}>
+          <img {...iconImg} src={props.icon.path} role="presentation" alt=""/>
+        </div>
       );
   }
 };
@@ -84,7 +103,7 @@ export default class IconWrapper extends Component {
       ipcRenderer.on(IPC_RETRIEVE_ICON, this.fetchIcon);
     } else {
       // eslint-disable-next-line react/no-did-mount-set-state
-      this.setState({ icon: this.props.icon });
+      this.setState({icon: this.props.icon});
     }
   }
 
@@ -102,9 +121,7 @@ export default class IconWrapper extends Component {
   };
 
   render() {
-    // eslint-disable-next-line no-console
-    console.log('props', this.props);
-    return <Icon icon={this.state.icon} />;
+    return <Icon icon={this.state.icon}/>;
   }
 }
 
