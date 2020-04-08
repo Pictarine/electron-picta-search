@@ -45,7 +45,6 @@ const Icon = props => {
         </span>
       );
     default:
-      // eslint-disable-line no-fallthrough
       return (
         <img {...iconImg} src={props.icon.path} role="presentation" alt="" />
       );
@@ -80,7 +79,7 @@ export default class IconWrapper extends Component {
   };
 
   componentDidMount() {
-    if (this.props.icon.type === 'fileicon') {
+    if (this.props.icon.type === 'file') {
       ipcRenderer.send(IPC_FETCH_ICON, this.props.icon.path);
       ipcRenderer.on(IPC_RETRIEVE_ICON, this.fetchIcon);
     } else {
@@ -103,6 +102,8 @@ export default class IconWrapper extends Component {
   };
 
   render() {
+    // eslint-disable-next-line no-console
+    console.log('props', this.props);
     return <Icon icon={this.state.icon} />;
   }
 }

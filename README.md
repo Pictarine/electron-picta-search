@@ -8,6 +8,9 @@ Fork from https://github.com/DextApp/dext
 * Update BrowserWindow to load node content
 * Add Dark Mode for icon in status bar (will create a new icon after)
 * Add new status bar menu items to connect 3rd parties account
+* Fix Insecure warning
+* Update mathjs lib eval => evaluate
+* Fix not displaying icons
 
 ## Incoming
 

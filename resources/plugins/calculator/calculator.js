@@ -5,7 +5,7 @@ module.exports = {
   action: 'copy',
   query: query => {
     try {
-      const ans = math.eval(query);
+      const ans = math.evaluate(query);
       if (typeof ans === 'function') {
         throw new Error('function returned');
       }

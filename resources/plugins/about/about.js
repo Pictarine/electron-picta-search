@@ -8,17 +8,9 @@ module.exports = {
     if (query === '?' || query === 'help' || query === 'about') {
       items = [
         {
-          title: 'Dext',
-          subtitle: 'A smart launcher for Mac. Powered by JavaScript.',
-          arg: 'https://github.com/DextApp/dext',
-          icon: {
-            path: './github.png',
-          },
-        },
-        {
-          title: 'Created By Vu Tran',
-          subtitle: 'Follow @tranvu on Twitter',
-          arg: 'https://twitter.com/tranvu',
+          title: 'Fork by Pictarine Inc.',
+          subtitle: 'From Dext Project',
+          arg: 'https://twitter.com/pictarine',
           icon: {
             path: './twitter.png',
           },

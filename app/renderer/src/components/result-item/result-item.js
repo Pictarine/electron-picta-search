@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { style, compose, hover } from 'glamor';
+import {style, compose, hover} from 'glamor';
 import IconWrapper from '../icon-wrapper';
 
 const activeStyle = {
@@ -59,10 +59,10 @@ const subtitle = style({
 });
 
 const checkAnimation = style.keyframes('check', {
-  '0%': { height: 0, width: 0, opacity: 1 },
-  '20%': { height: 0, width: '6px', opacity: 1 },
-  '40%': { height: '12px', width: '6px', opacity: 1 },
-  '100%': { height: '12px', width: '6px', opacity: 1 },
+  '0%': {height: 0, width: 0, opacity: 1},
+  '20%': {height: 0, width: '6px', opacity: 1},
+  '40%': {height: '12px', width: '6px', opacity: 1},
+  '100%': {height: '12px', width: '6px', opacity: 1},
 });
 
 const checkmarkWrapper = style({
@@ -110,6 +110,7 @@ export class ResultItem extends React.PureComponent {
     keys: PropTypes.arrayOf(PropTypes.string),
     copiedToClipboard: PropTypes.bool,
   };
+
   isAltMod() {
     return (
       this.props.selected &&
@@ -127,8 +128,8 @@ export class ResultItem extends React.PureComponent {
   }
 
   execute = () => {
-    const { item } = this.props;
-    const { action } = item;
+    const {item} = this.props;
+    const {action} = item;
     ipcRenderer.send(IPC_EXECUTE_ITEM, {
       action,
       item,
@@ -136,16 +137,17 @@ export class ResultItem extends React.PureComponent {
       isSuperMod: this.isSuperMod(),
     });
   };
+
   render() {
-    const { theme, item, selected, copiedToClipboard } = this.props;
+    const {theme, item, selected, copiedToClipboard} = this.props;
     const themeBase = style(theme.result || {});
     const themeHover = hover(theme.resultActive || {});
 
     const themeSelected = selected
       ? compose(
-          style(activeStyle),
-          style(theme.resultActive || {})
-        )
+        style(activeStyle),
+        style(theme.resultActive || {})
+      )
       : {};
 
     // apply modifiers if necessary
@@ -171,7 +173,7 @@ export class ResultItem extends React.PureComponent {
         onDoubleClick={this.execute}
       >
         <div {...icon}>
-          <IconWrapper wrapper />
+          <IconWrapper {...item}/>
         </div>
         <div {...details}>
           <h2

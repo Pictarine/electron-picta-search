@@ -204,7 +204,7 @@ exports.getFileIcon = fileIconPath =>
 exports.connectItems = (items, plugin) =>
   items.map(i => {
     const icon = {
-      type: i && i.icon && i.icon.type,
+      type: i && i.icon && i.icon.type || '',
       path: '',
     };
     if (i.icon && i.icon.path) {

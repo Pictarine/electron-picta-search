@@ -19,13 +19,13 @@ const search = style({
   backgroundColor: 'transparent',
   border: 0,
   boxSizing: 'border-box',
-  fontSize: 50,
+  fontSize: 35,
   marginBottom: 0,
-  paddingBottom: 15,
+  // paddingBottom: 15,
   outline: 0,
   overflow: 'visible',
   width: '100%',
-  height: 50,
+  height: 35,
 });
 
 class QueryField extends React.Component {
