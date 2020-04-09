@@ -2,6 +2,10 @@ const {parse} = require('url');
 const {BrowserWindow} = require('electron');
 const axios = require('axios');
 const qs = require('qs');
+const {google} = require('googleapis');
+const Store = require('electron-store');
+
+const store = new Store();
 const {
   IPC_WINDOW_NAVIGATE,
   IPC_WINDOW_DID_NAVIGATE,
@@ -15,6 +19,24 @@ const CLIENT_ID = '770941246865-46okqgv94k4bojmiqbtgfggk8j6f5qib.apps.googleuser
 const CLIENT_SECRET = 'VsP9E8hFaDGZ3wVgv91ji8pk'
 const REDIRECT_URI = 'https://junior-dot-backend-dot-picta-int.appspot.com/oauth/callback/v2/gmail'
 
+const oauth2Client = new google.auth.OAuth2(
+  CLIENT_ID,
+  CLIENT_SECRET,
+  REDIRECT_URI
+);
+
+const gmail = google.gmail({
+  version: 'v1',
+  auth: oauth2Client,
+});
+
+const scopes = [
+  'https://mail.google.com/',
+  'https://www.googleapis.com/auth/userinfo.email',
+  'https://www.googleapis.com/auth/userinfo.profile',
+  'https://www.googleapis.com/auth/drive.metadata.readonly',
+];
+
 function signInWithPopup() {
   return new Promise((resolve, reject) => {
     const authWindow = new BrowserWindow({
@@ -23,15 +45,10 @@ function signInWithPopup() {
       show: true,
     })
 
-    const urlParams = {
-      response_type: 'code',
-      redirect_uri: REDIRECT_URI,
-      client_id: CLIENT_ID,
-      scope: 'https://mail.google.com/ openid https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile',
-      include_granted_scopes: true,
+    const authUrl = oauth2Client.generateAuthUrl({
       access_type: 'offline',
-    }
-    const authUrl = `${GOOGLE_AUTHORIZATION_URL}?${qs.stringify(urlParams)}`
+      scope: scopes
+    });
 
     function handleNavigation(url) {
       const query = parse(url, true).query
@@ -64,39 +81,23 @@ function signInWithPopup() {
   })
 }
 
-function fetchAccessTokens(code) {
-  return new Promise((resolve, reject) => {
-    axios({
-      method: 'post',
-      url: GOOGLE_TOKEN_URL,
-      data: {
-        code,
-        client_id: CLIENT_ID,
-        client_secret: CLIENT_SECRET,
-        redirect_uri: REDIRECT_URI,
-        grant_type: 'authorization_code',
-      }
-    })
-      .then(r => {
-        // eslint-disable-next-line no-console
-        console.log('R', r);
-        resolve(r);
-      })
-      .catch(err => {
-        // eslint-disable-next-line no-console
-        console.log('Error', err);
-        reject(err);
-      });
-  });
-}
-
 async function googleSignIn() {
   const code = await signInWithPopup()
+
+  const {tokens} = await oauth2Client.getToken(code)
+
+  store.set('tokens', tokens);
+  oauth2Client.setCredentials(tokens);
+}
+
+async function getGmailMessages() {
+  oauth2Client.setCredentials(store.get('tokens'));
+  const res = await gmail.users.messages.list({userId: 'me'});
   // eslint-disable-next-line no-console
-  console.log('Google code', code);
-  const tokens = await fetchAccessTokens(code)
+  console.log(res.data);
 }
 
 module.exports = {
-  googleSignIn
+  googleSignIn,
+  getGmailMessages
 }

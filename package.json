@@ -84,7 +84,8 @@
     "got": "^6.3.0",
     "urlencode": "^1.1.0",
     "axios": "^0.19.2",
-    "electron-store": "^5.1.1"
+    "electron-store": "^5.1.1",
+    "googleapis": "^48.0.0"
   },
   "engines": {
     "node": ">= 13.0.0"
