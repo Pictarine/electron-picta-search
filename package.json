@@ -77,7 +77,10 @@
     "react-dom": "16.13.1",
     "react-test-renderer": "16.13.1",
     "screen-saver": "^0.2.1",
-    "string_score": "^0.1.22"
+    "string_score": "^0.1.22",
+    "request": "^2.88.2",
+    "file-icon": "^3.1.0",
+    "os-apps": "^0.2.1"
   },
   "engines": {
     "node": ">= 13.0.0"

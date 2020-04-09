@@ -12,11 +12,13 @@ module.exports = {
   action: 'openurl',
   query: query => {
     const urlMatches = IS_URL.exec(query);
+    const matches = query.match(/^(?:https?:)?(?:\/\/)?([^\/\?]+)/i);
+    let domain = matches && matches[1];
     return {
       items: urlMatches
         ? [
             {
-              title: `Open ${query} in the browser.`,
+              title: `Open ${domain} in the browser.`,
               subtitle: 'Open in browser',
               arg: normalize(query),
               icon: {

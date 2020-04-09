@@ -10,7 +10,6 @@ const iconImg = style({
   maxWidth: 40,
   maxHeight: 40,
   dislay: 'block',
-  boxShadow: '0px 10px -14px 14px #FFF',
   position: 'absolute',
   left: '50%',
   top: '50%',
@@ -24,7 +23,8 @@ const containerImg = style({
   minHeight: 40,
   position: 'relative',
   backgroundColor: isDarkModeEnabled ? '#FFF' : 'transparent',
-})
+  padding: 4,
+});
 
 const iconImgTextBase = compose(
   iconImg,
@@ -33,6 +33,10 @@ const iconImgTextBase = compose(
     backgroundColor: isDarkModeEnabled ? '#F2F2F2' : '#888',
     color: isDarkModeEnabled ? '#000' : '#fff',
     textDecoration: 'none',
+    position: 'relative',
+    left: 0,
+    top: 0,
+    transform: 'none',
     textAlign: 'center',
     width: 40,
     height: 40,
