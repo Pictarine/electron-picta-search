@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import { ipcRenderer } from 'electron';
-import { compose, pseudo, style } from 'glamor';
+import React, {Component} from 'react';
+import {ipcRenderer} from 'electron';
+import {compose, pseudo, style} from 'glamor';
 import {
   IPC_WINDOW_SHOW,
   IPC_WINDOW_RESIZE,
@@ -82,17 +82,17 @@ class ResultList extends Component {
       if (newResults.length) {
         // TODO: compute the height + added padding
         const height = newResults.length * 60 + 30;
-        ipcRenderer.send(IPC_WINDOW_RESIZE, { height });
+        ipcRenderer.send(IPC_WINDOW_RESIZE, {height});
       }
       if (newResults.length) this.props.onUpdateResults(newResults);
       else this.props.onResetResults();
-      this.setState({ copiedToClipboard: false });
+      this.setState({copiedToClipboard: false});
       this.retrieveDetails(this.props.selectedIndex);
     });
     ipcRenderer.on(IPC_SELECT_PREVIOUS_ITEM, () => {
       if (this.props.selectedIndex > 0) {
         this.props.onSelectItem(this.props.selectedIndex - 1);
-        this.setState({ copiedToClipboard: false }, () => {
+        this.setState({copiedToClipboard: false}, () => {
           this.scrollToItem(this.props.selectedIndex);
           this.retrieveDetails(this.props.selectedIndex);
         });
@@ -101,7 +101,7 @@ class ResultList extends Component {
     ipcRenderer.on(IPC_SELECT_NEXT_ITEM, () => {
       if (this.props.selectedIndex < this.props.results.length - 1) {
         this.props.onSelectItem(this.props.selectedIndex + 1);
-        this.setState({ copiedToClipboard: false }, () => {
+        this.setState({copiedToClipboard: false}, () => {
           this.scrollToItem(this.props.selectedIndex);
           this.retrieveDetails(this.props.selectedIndex);
         });
@@ -114,11 +114,13 @@ class ResultList extends Component {
       this.execute();
     });
   }
+
   // @TODO: Move this into a separate component?
   componentWillUnmount() {
     window.removeEventListener('keydown', this.handleKeyDown);
     window.removeEventListener('keyup', this.handleKeyUp);
   }
+
   handleKeyDown = e => {
     this.props.onSetActiveKey(e.key.toLowerCase());
   };
@@ -126,14 +128,19 @@ class ResultList extends Component {
     this.props.onClearActiveKey(e.key.toLowerCase());
   };
   retrieveDetails = index => {
+
     if (this.props.results[index]) {
+
+      // eslint-disable-next-line no-console
+      console.log('Retrieve details');
+
       ipcRenderer.send(IPC_ITEM_DETAILS_REQUEST, this.props.results[index]);
     }
   };
   copyItem = () => {
     const item = this.props.results[this.props.selectedIndex];
     ipcRenderer.send(IPC_COPY_CURRENT_ITEM, item);
-    this.setState({ copiedToClipboard: true });
+    this.setState({copiedToClipboard: true});
   };
   isAltMod = () => this.props.keys && this.props.keys.indexOf('alt') > -1;
   isSuperMod = () => this.props.keys && this.props.keys.indexOf('meta') > -1;
@@ -171,11 +178,14 @@ class ResultList extends Component {
         selected={selectedIndex === key}
       />
     ));
+
   render() {
     const currItem = this.props.results[this.props.selectedIndex];
+    // eslint-disable-next-line no-console
+    console.log('CurrItem', this.props);
     return this.props.results.length ? (
       <div
-        {...style({ position: 'relative', paddingTop: 15, paddingBottom: 15 })}
+        {...style({position: 'relative', paddingTop: 15, paddingBottom: 15})}
       >
         <ol
           {...compose(

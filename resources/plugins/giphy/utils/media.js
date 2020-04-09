@@ -9,7 +9,7 @@ module.exports = function media (giphy) {
   } = giphy
 
   return {
-    title,
+    title: title.replace('GIF', ''),
     subtitle: url,
     arg: url,
     icon: { path: smallImg.url },

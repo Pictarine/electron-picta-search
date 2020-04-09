@@ -2,7 +2,6 @@ const media = require('./utils/media')
 const concatenate = require('./utils/concatenate')
 const request = require('request')
 
-const isDev = process.env.NODE_ENV === 'development'
 const BASE_URL = 'http://api.giphy.com/v1/gifs/search'
 
 // The public BETA KEY!!
@@ -37,7 +36,6 @@ module.exports = {
       resolve({items: mediaItems})
     })
   }),
-
   details: {
     type: 'html',
     render,
@@ -49,5 +47,6 @@ function render({
                     images: {downsized_medium: {url}},
                   },
                 }) {
-  return `<img src="${url}" />`
+
+  return `<img style="display: block; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%)" src="${url}" />`
 }

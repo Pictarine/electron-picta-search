@@ -11,6 +11,7 @@ const loadPluginFromPath = path => require(path);
  */
 const requestItemDetails = (evt, item) => {
   const plugin = loadPluginFromPath(item.plugin.path);
+
   // @todo - cache content
   const content = retrieveItemDetails(item, plugin);
   Promise.resolve(content).then(html => {

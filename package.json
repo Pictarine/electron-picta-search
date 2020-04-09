@@ -80,7 +80,9 @@
     "string_score": "^0.1.22",
     "request": "^2.88.2",
     "file-icon": "^3.1.0",
-    "os-apps": "^0.2.1"
+    "os-apps": "^0.2.1",
+    "got": "^6.3.0",
+    "urlencode": "^1.1.0"
   },
   "engines": {
     "node": ">= 13.0.0"

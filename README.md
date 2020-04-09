@@ -6,6 +6,8 @@ Fork from https://github.com/DextApp/dext
 
 * Fix Insecure warning
 * Fix not displaying icons
+* Fix bad IPC send to mainProcess for details retrieving
+* Fix queryHelper empty array error
 * Update all dep
 * Update BrowserWindow to load node content
 * Update mathjs lib eval => evaluate
@@ -14,6 +16,7 @@ Fork from https://github.com/DextApp/dext
 * Add new status bar menu items to connect 3rd parties account
 * Add [applications search](https://github.com/vutran/dext-darwin-applications-plugin) as a default plugin
 * Add [giphy search](https://github.com/adnasa/dext-giphy-plugin) as a default plugin
+* Add [github search](https://github.com/vutran/dext-github-plugin) as a default plugin
 
 ## Incoming
 

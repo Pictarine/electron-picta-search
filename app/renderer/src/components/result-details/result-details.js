@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { ipcRenderer } from 'electron';
-import { compose, pseudo, style } from 'glamor';
-import { IPC_ITEM_DETAILS_RESPONSE } from '../../../../constants';
-const { isDarkModeEnabled } = require('../../../../main/utils/helpers');
+import {ipcRenderer} from 'electron';
+import {compose, pseudo, style} from 'glamor';
+import {IPC_ITEM_DETAILS_RESPONSE} from '../../../../ipc';
+const {isDarkModeEnabled} = require('../../../../main/utils/helpers');
 
 class ResultDetails extends React.PureComponent {
   static displayName = 'ResultDetails';
@@ -19,21 +19,26 @@ class ResultDetails extends React.PureComponent {
   };
 
   componentDidMount() {
-    ipcRenderer.on(IPC_ITEM_DETAILS_RESPONSE, (evt, details) => {
-      if (details) {
-        this.props.onLoad(details);
+    ipcRenderer.on(IPC_ITEM_DETAILS_RESPONSE, (evt, dtails) => {
+
+      if (dtails) {
+        this.props.onLoad(dtails);
       }
     });
   }
+
   render() {
+    // eslint-disable-next-line no-console
+    console.log('Dtails detail', this.props.details);
+
     const base = compose(
       // apply base style
       style({
         boxSizing: 'border-box',
         position: 'absolute',
-        backgroundColor: '#f2f2f2',
-        width: '65%',
-        right: '-65%',
+        backgroundColor: isDarkModeEnabled ? '#121212' : '#f2f2f2',
+        width: '50%',
+        right: '-50%',
         top: 0,
         bottom: 0,
         padding: 15,
@@ -53,24 +58,24 @@ class ResultDetails extends React.PureComponent {
       }),
       this.props.details.length > 0
         ? style({
-            right: '0%',
-          })
+          right: '0%',
+        })
         : {}
     );
     // apply theme styles
     const styles =
       this.props.theme && this.props.theme.resultDetails
         ? compose(
-            base,
-            this.props.theme.resultDetails
-          )
+        base,
+        this.props.theme.resultDetails
+        )
         : base;
 
     return (
       // eslint-disable-next-line react/no-danger
       <div
         {...styles}
-        dangerouslySetInnerHTML={{ __html: this.props.details }}
+        dangerouslySetInnerHTML={{__html: this.props.details}}
       />
     );
   }

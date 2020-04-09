@@ -9,7 +9,7 @@ const {isDarkModeEnabled} = require('../../../../main/utils/helpers');
 const iconImg = style({
   maxWidth: 40,
   maxHeight: 40,
-  dislay: 'block',
+  display: 'block',
   position: 'absolute',
   left: '50%',
   top: '50%',

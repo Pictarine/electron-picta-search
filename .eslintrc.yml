@@ -22,10 +22,6 @@ env:
   node: true
 rules:
   import/no-extraneous-dependencies: 0
-  prettier/prettier:
-  - error
-  - trailingComma: es5
-    singleQuote: true
   jest/no-disabled-tests: warn
   jest/no-focused-tests: error
   jest/no-identical-title: error
