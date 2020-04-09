@@ -30,6 +30,7 @@ const {
   IPC_FETCH_ICON,
   IPC_RETRIEVE_ICON,
 } = require('../ipc');
+const {googleSignIn} = require('./oauth');
 const {
   MAX_RESULTS,
   CORE_PLUGIN_PATH,
@@ -276,6 +277,9 @@ const contextMenu = Menu.buildFromTemplate([
   {
     label: 'Connect to Google Account',
     type: 'normal',
+    click: () => {
+      googleSignIn();
+    },
   },
   {
     label: 'Connect to Slack Account',

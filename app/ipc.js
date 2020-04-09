@@ -3,6 +3,8 @@ const IPC_WINDOW_HIDE = 'window-hide';
 const IPC_WINDOW_RESIZE = 'window-resize';
 const IPC_WINDOW_EXPAND = 'window-expand';
 const IPC_WINDOW_COLLAPSE = 'window-collapse';
+const IPC_WINDOW_NAVIGATE = 'will-navigate';
+const IPC_WINDOW_DID_NAVIGATE = 'did-navigate';
 const IPC_QUERY_COMMAND = 'query';
 const IPC_QUERY_RESULTS = 'query-results';
 const IPC_SELECT_PREVIOUS_ITEM = 'select-previous-item';
@@ -23,6 +25,8 @@ module.exports = {
   IPC_WINDOW_RESIZE,
   IPC_WINDOW_EXPAND,
   IPC_WINDOW_COLLAPSE,
+  IPC_WINDOW_NAVIGATE,
+  IPC_WINDOW_DID_NAVIGATE,
   IPC_QUERY_COMMAND,
   IPC_QUERY_RESULTS,
   IPC_SELECT_PREVIOUS_ITEM,
