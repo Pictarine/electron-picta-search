@@ -142,6 +142,12 @@ const handleDidFinishLoad = (theme) => {
  * @param {Object[]} plugins - An array of plugin objects
  */
 const handleQueryCommand = (evt, {q: queryPhrase}, plugins) => {
+
+  // eslint-disable-next-line no-console
+  console.log('queryPhrase', queryPhrase);
+
+  evt.sender.send(IPC_QUERY_RESULTS, []);
+
   const results = []; // the end result of promises
   const fractions = queryPhrase.split(' ');
 
@@ -278,8 +284,7 @@ const contextMenu = Menu.buildFromTemplate([
     label: 'Connect to Google Account',
     type: 'normal',
     click: () => {
-      //googleSignIn();
-      getGmailMessages();
+      googleSignIn();
     },
   },
   {

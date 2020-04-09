@@ -1,34 +1,26 @@
 const {parse} = require('url');
 const {BrowserWindow} = require('electron');
-const axios = require('axios');
-const qs = require('qs');
 const {google} = require('googleapis');
 const Store = require('electron-store');
 
 const store = new Store();
+
 const {
   IPC_WINDOW_NAVIGATE,
   IPC_WINDOW_DID_NAVIGATE,
 } = require('../../ipc');
 
-const GOOGLE_AUTHORIZATION_URL = 'https://accounts.google.com/o/oauth2/v2/auth'
-const GOOGLE_TOKEN_URL = 'https://www.googleapis.com/oauth2/v4/token'
-const GOOGLE_PROFILE_URL = 'https://www.googleapis.com/userinfo/v2/me'
-
-const CLIENT_ID = '770941246865-46okqgv94k4bojmiqbtgfggk8j6f5qib.apps.googleusercontent.com'
-const CLIENT_SECRET = 'VsP9E8hFaDGZ3wVgv91ji8pk'
-const REDIRECT_URI = 'https://junior-dot-backend-dot-picta-int.appspot.com/oauth/callback/v2/gmail'
+const {
+  GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET,
+  GOOGLE_REDIRECT_URI,
+} = require('../../constants')
 
 const oauth2Client = new google.auth.OAuth2(
-  CLIENT_ID,
-  CLIENT_SECRET,
-  REDIRECT_URI
+  GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET,
+  GOOGLE_REDIRECT_URI
 );
-
-const gmail = google.gmail({
-  version: 'v1',
-  auth: oauth2Client,
-});
 
 const scopes = [
   'https://mail.google.com/',
@@ -47,6 +39,7 @@ function signInWithPopup() {
 
     const authUrl = oauth2Client.generateAuthUrl({
       access_type: 'offline',
+      prompt: 'consent',
       scope: scopes
     });
 
@@ -88,16 +81,11 @@ async function googleSignIn() {
 
   store.set('tokens', tokens);
   oauth2Client.setCredentials(tokens);
-}
 
-async function getGmailMessages() {
-  oauth2Client.setCredentials(store.get('tokens'));
-  const res = await gmail.users.messages.list({userId: 'me'});
   // eslint-disable-next-line no-console
-  console.log(res.data);
+  console.log('Tokens', tokens);
 }
 
 module.exports = {
   googleSignIn,
-  getGmailMessages
 }
