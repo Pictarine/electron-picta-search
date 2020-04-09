@@ -14,9 +14,10 @@ Fork from https://github.com/DextApp/dext
 * Update "open link in browser" with a regex to only present to domain name instead of the whole url
 * Add Dark Mode for icon in status bar (will create a new icon after)
 * Add new status bar menu items to connect 3rd parties account
-* Add [applications search](https://github.com/vutran/dext-darwin-applications-plugin) as a default plugin
-* Add [giphy search](https://github.com/adnasa/dext-giphy-plugin) as a default plugin
-* Add [github search](https://github.com/vutran/dext-github-plugin) as a default plugin
+* Add [applications search](https://github.com/vutran/dext-darwin-applications-plugin) as a core plugin
+* Add [giphy search](https://github.com/adnasa/dext-giphy-plugin) as a core plugin
+* Add [github search](https://github.com/vutran/dext-github-plugin) as a core plugin
+* Add [google search](https://github.com/justinpchang/dext-search-plugin) as a core plugin
 
 ## Incoming
 
