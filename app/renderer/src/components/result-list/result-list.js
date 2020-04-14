@@ -181,8 +181,6 @@ class ResultList extends Component {
 
   render() {
     const currItem = this.props.results[this.props.selectedIndex];
-    // eslint-disable-next-line no-console
-    console.log('CurrItem', this.props);
     return this.props.results.length ? (
       <div
         {...style({position: 'relative', paddingTop: 15, paddingBottom: 15})}

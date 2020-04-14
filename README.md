@@ -24,9 +24,7 @@ Fork from https://github.com/DextApp/dext
 
 ## Incoming
 
-* Gmail search integration
 * Dropbox search integration
 * Slack search integration
-* Drive search integration
 * Local files search integration
 
