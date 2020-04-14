@@ -279,6 +279,17 @@ const contextMenu = Menu.buildFromTemplate([
       toggleMainWindow();
     },
   },
+  {
+    label: 'Start at login',
+    type: 'checkbox',
+    checked: electron.app.getLoginItemSettings().openAtLogin,
+    click: () => {
+      electron.app.setLoginItemSettings({
+        openAtLogin: !electron.app.getLoginItemSettings().openAtLogin,
+        path: electron.app.getPath("exe")
+      });
+    },
+  },
   {type: 'separator'},
   {
     label: 'Connect to Google Account',

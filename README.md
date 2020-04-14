@@ -18,6 +18,9 @@ Fork from https://github.com/DextApp/dext
 * Add [giphy search](https://github.com/adnasa/dext-giphy-plugin) as a core plugin
 * Add [github search](https://github.com/vutran/dext-github-plugin) as a core plugin
 * Add [google search](https://github.com/justinpchang/dext-search-plugin) as a core plugin
+* Add Gmail oauth + search for content as a core plugin
+* Add Drive oauth + search for files as a core plugin
+* Add start at login menu item
 
 ## Incoming
 

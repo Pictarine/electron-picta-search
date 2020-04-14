@@ -11,7 +11,7 @@ const GOOGLE_CLIENT_SECRET = 'VsP9E8hFaDGZ3wVgv91ji8pk'
 const GOOGLE_REDIRECT_URI = 'https://junior-dot-backend-dot-picta-int.appspot.com/oauth/callback/v2/gmail'
 
 module.exports = {
-  MAX_RESULTS: 20,
+  MAX_RESULTS: 40,
   IS_DEV: process.env.NODE_ENV === 'development',
   CORE_PLUGIN_PATH: path.resolve(__dirname, '..', 'resources', 'plugins'),
   // ms

@@ -31,7 +31,7 @@ const sortByScore = (a, b) => {
 
 module.exports = {
   action: 'openurl',
-  query: (query, options = { size: 20 }) =>
+  query: (query, options = { size: 5 }) =>
     new Promise(resolve => {
       const { size } = options;
       browserBookmarks.getChrome().then(bookmarks => {
