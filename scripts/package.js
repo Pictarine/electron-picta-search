@@ -1,9 +1,10 @@
 const path = require('path');
 const packager = require('electron-packager');
 const chalk = require('chalk');
+const pkg = require('../package.json')
 
 const DEFAULT_OPTIONS = {
-  name: 'Dext',
+  name: pkg.name,
   dir: path.resolve(__dirname, '..'),
   out: './dist/package',
   icon: path.resolve(__dirname, '..', 'resources', 'icon.icns'),
