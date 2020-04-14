@@ -1,3 +1,8 @@
-module.exports = require('./dropbox');
-module.exports = require('./slack');
-module.exports = require('./google');
+const {dropboxSignIn} = require('./dropbox');
+const {googleSignIn} = require('./google');
+
+module.exports = {
+  dropboxSignIn,
+  googleSignIn
+}
+

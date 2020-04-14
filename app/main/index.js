@@ -30,7 +30,7 @@ const {
   IPC_FETCH_ICON,
   IPC_RETRIEVE_ICON,
 } = require('../ipc');
-const {googleSignIn, getGmailMessages} = require('./oauth');
+const {googleSignIn, dropboxSignIn} = require('./oauth');
 const {
   MAX_RESULTS,
   CORE_PLUGIN_PATH,
@@ -305,6 +305,9 @@ const contextMenu = Menu.buildFromTemplate([
   {
     label: 'Connect to Dropbox Account',
     type: 'normal',
+    click: () => {
+      dropboxSignIn();
+    },
   },
   {type: 'separator'},
   {
@@ -437,7 +440,7 @@ const onAppReady = () => {
     .then((ipcConfig) => {
       registerIpcListeners(ipcConfig);
       if (IS_DEV)
-        ipcConfig.registeredWindow.webContents.openDevTools({ mode: 'detach' });
+        ipcConfig.registeredWindow.webContents.openDevTools({mode: 'detach'});
     });
 };
 
