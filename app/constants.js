@@ -15,7 +15,7 @@ module.exports = {
   IS_DEV: process.env.NODE_ENV === 'development',
   CORE_PLUGIN_PATH: path.resolve(__dirname, '..', 'resources', 'plugins'),
   // ms
-  DEBOUNCE_TIME: 100,
+  DEBOUNCE_TIME: 200,
   WINDOW_DEFAULT_HEIGHT,
   WINDOW_DEFAULT_WIDTH,
   WINDOW_MAX_HEIGHT,

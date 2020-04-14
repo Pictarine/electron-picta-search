@@ -67,7 +67,7 @@ const Icon = props => {
       );
     default:
       return (
-        <div {...containerImg}>
+        <div {...containerImg} role="presentation">
           <img {...iconImg} src={props.icon.path} alt=""/>
         </div>
       );
