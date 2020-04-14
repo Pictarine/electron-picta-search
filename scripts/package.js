@@ -9,50 +9,28 @@ const DEFAULT_OPTIONS = {
   icon: path.resolve(__dirname, '..', 'resources', 'icon.icns'),
   overwrite: true,
   prune: true,
-  ignore: [
+  /* ignore: [
     '__mocks__/',
-    '__tests__/',
-    'coverage/',
     'dist/',
-    'docs/.*.md',
+    'docs/',
     'scripts/',
     '.babelrc',
     '.DS_Store',
     '.editorconfig',
     '.eslintignore',
-    '.eslintrc',
     '.gitignore',
-    '.travis.yml',
-    'CONTRIBUTING.md',
+    'Makefile',
     'README.md',
-    'screenshot.gif',
     'webpack.config.js',
     'webpack.config.prod.js',
-    'yarn.lock',
-  ],
+    'webpack.config.dev.js',
+  ], */
 };
-
-/**
- * Packages the app for the given platform
- *
- * @param {String} platform
- * @param {String} arch
- */
-const pkg = (platform, arch) =>
-  new Promise(resolve => {
-    const opts = Object.assign({}, DEFAULT_OPTIONS, {
-      platform,
-      arch,
-    });
-    packager(opts, err => {
-      resolve({ err, options: { platform, arch } });
-    });
-  });
 
 /**
  * Print the status of the package
  */
-const printStatus = ({ err, options }) => {
+const printStatus = ({err, options}) => {
   if (err) {
     // eslint-disable-next-line no-console
     console.log(
@@ -66,6 +44,20 @@ const printStatus = ({ err, options }) => {
   }
 };
 
+// eslint-disable-next-line no-console
+console.log('PATH', path.resolve(__dirname, '..'));
+
 // start packaging
-pkg('darwin', 'x64').then(printStatus);
-pkg('linux', 'x64').then(printStatus);
+const opts = Object.assign({}, DEFAULT_OPTIONS, {
+  platform: 'darwin',
+  arch: 'x64',
+});
+
+// eslint-disable-next-line no-console
+console.log('OPT', opts);
+
+packager(opts).then(() => {
+  printStatus({options: {platform: 'darwin', arch: 'x64'}})
+})
+
+// pkg('linux', 'x64').then(printStatus);

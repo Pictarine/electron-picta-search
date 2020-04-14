@@ -1,16 +1,15 @@
-const { api, utils } = require('dext-core-utils');
-const { fork } = require('child_process');
+const {api, utils} = require('dext-core-utils');
+const {fork} = require('child_process');
 const deepAssign = require('deep-assign');
 const electron = require('electron');
 const fs = require('fs');
-const is = require('is_js');
 const MarkdownIt = require('markdown-it');
 const path = require('path');
 const plist = require('plist');
-const { MAX_RESULTS, IS_DEV } = require('../../constants');
+const {MAX_RESULTS, IS_DEV} = require('../../constants');
 
-const { app } = electron;
-const { PLUGIN_PATH } = utils.paths;
+const {app} = electron;
+const {PLUGIN_PATH} = utils.paths;
 
 /**
  * Loads plugins in the given path
@@ -100,7 +99,7 @@ exports.applyModuleProperties = plugin =>
       if (err1) {
         // retrieve the keyword and action from the plugin
         // eslint-disable-next-line global-require, import/no-dynamic-require
-        const { keyword, action, helper } = require(plugin.path);
+        const {keyword, action, helper} = require(plugin.path);
         // set the plugin object overrides
         const newOpts = {
           schema: 'dext',
@@ -210,7 +209,15 @@ exports.connectItems = (items, plugin) =>
     if (i.icon && i.icon.path) {
       icon.path = i.icon.path;
       const isBase64 = /data:image\/.*;base64/.test(i.icon.path);
-      if (!is.url(i.icon.path) && !isBase64) {
+
+      let pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|' + // domain name
+        '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+        '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+        '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+
+      if (!pattern.test(i.icon.path) && !isBase64) {
         icon.path = path.resolve(plugin.path, i.icon.path);
       }
     }
@@ -290,7 +297,7 @@ exports.queryResults = (plugin, args) =>
         const command = pluginObj[queryCommand];
         const output =
           typeof command === 'function'
-            ? command(query, { size: MAX_RESULTS })
+            ? command(query, {size: MAX_RESULTS})
             : command;
 
         if (output) {
@@ -309,8 +316,7 @@ exports.queryResults = (plugin, args) =>
             if (i.items && i.items.length > 0) {
               const items = exports.connectItems(i.items, plugin);
               resolve(items);
-            }
-            else {
+            } else {
               resolve([]);
             }
           });

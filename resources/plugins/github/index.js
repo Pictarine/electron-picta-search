@@ -1,6 +1,6 @@
 // GitHub icon by Freepik <http://www.flaticon.com/free-icon/github-mascot-logo-variant_38521#term=github&page=1&position=30>
 
-const got = require('got');
+const axios = require('axios');
 
 // default API endpoint
 const ENDPOINT = 'https://api.github.com';
@@ -15,9 +15,9 @@ const ENDPOINT = 'https://api.github.com';
 const makeRequest = (endpoint, options) => {
   const opts = Object.assign({}, {json: true}, options);
   const url = `${ENDPOINT}/${endpoint.replace(/^\//, '')}`;
-  const prom = got(url, opts);
+  const prom = axios(url, {params:opts});
   return new Promise((resolve) => {
-    prom.then(res => resolve(res.body));
+    prom.then(res => resolve(res.data));
   });
 };
 

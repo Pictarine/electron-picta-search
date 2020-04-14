@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const baseConfig = require('./webpack.config');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const UglifyEsPlugin = require('uglify-es-webpack-plugin')
 
 const plugins = [
   new webpack.BannerPlugin(`
@@ -16,10 +16,10 @@ const prodConfig = merge({}, baseConfig, {
   mode: 'production',
   optimization: {
     minimizer: [
-      new UglifyJsPlugin({
-        uglifyOptions: {
-          compress: { warnings: false },
-        },
+      new UglifyEsPlugin({
+        compress: {
+          drop_console: true
+        }
       }),
     ],
     minimize: true,
