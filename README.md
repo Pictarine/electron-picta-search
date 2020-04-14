@@ -8,6 +8,8 @@ Fork from https://github.com/DextApp/dext
 * Fix not displaying icons
 * Fix bad IPC send to mainProcess for details retrieving
 * Fix queryHelper empty array error
+* Fix prod webpack
+* Fix archive and package scripts
 * Update all dep
 * Update BrowserWindow to load node content
 * Update mathjs lib eval => evaluate
@@ -21,6 +23,7 @@ Fork from https://github.com/DextApp/dext
 * Add Gmail oauth + search for content as a core plugin
 * Add Drive oauth + search for files as a core plugin
 * Add start at login menu item
+* Add dmg creation
 
 ## Incoming
 
