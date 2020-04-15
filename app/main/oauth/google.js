@@ -70,7 +70,7 @@ function signInWithPopup() {
       handleNavigation(newUrl)
     })
 
-    authWindow.loadURL(authUrl)
+    authWindow.loadURL(authUrl, {userAgent: 'Chrome'})
   })
 }
 
