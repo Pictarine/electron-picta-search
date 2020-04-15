@@ -28,8 +28,6 @@ class ResultDetails extends React.PureComponent {
   }
 
   render() {
-    // eslint-disable-next-line no-console
-    console.log('Dtails detail', this.props.details);
 
     const base = compose(
       // apply base style
