@@ -301,7 +301,8 @@ const contextMenu = Menu.buildFromTemplate([
     label: 'Connect to Google Account',
     type: 'normal',
     click: () => {
-      googleSignIn();
+      // googleSignIn();
+      electron.shell.openExternal('https://emerix-dot-backend-dot-picta-int.appspot.com/oauth/authorize/gmail');
     },
   },
   {
@@ -452,3 +453,39 @@ const onAppReady = () => {
 
 app.dock.hide();
 app.on('ready', onAppReady);
+
+app.on('activate', function () {
+  // On OS X it's common to re-create a window in the app when the
+  // dock icon is clicked and there are no other windows open.
+  console.log('on activate')
+})
+
+// Define custom protocol handler.
+// Deep linking works on packaged versions of the application!
+app.setAsDefaultProtocolClient('picta-search')
+
+// Protocol handler for osx
+app.on('open-url', function (event, url) {
+  event.preventDefault()
+  console.log(`DEEP LINKING: ${url}`)
+  try {
+    const reg = /picta-search:\/\/oauth\/([^/]+)\/(.+)/
+    const m = url.match(reg)
+    console.log(decodeURIComponent(m[2]))
+    const tokenObj = JSON.parse(decodeURIComponent(m[2]))
+    console.log(tokenObj)
+    const rawOauth = tokenObj.raw_oauth ?? tokenObj.raw
+    googleSignIn(rawOauth)
+    const w = new BrowserWindow({
+      width: 500,
+      height: 600,
+      show: true,
+    })
+    w.loadURL(`file://${__dirname}/oauth_success.html`)
+
+  } catch (e) {
+    console.log(e)
+    w.loadURL(`file://${__dirname}/oauth_fail.html`)
+  }
+})
+

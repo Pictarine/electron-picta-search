@@ -74,16 +74,17 @@ function signInWithPopup() {
   })
 }
 
-async function googleSignIn() {
-  const code = await signInWithPopup()
-
-  const {tokens} = await oauth2Client.getToken(code)
-
+async function googleSignIn(tokens) {
+  // const code = await signInWithPopup()
+  //
+  // const {tokens} = await oauth2Client.getToken(code)
+  //
   store.set('google_tokens', tokens);
   oauth2Client.setCredentials(tokens);
-
-  // eslint-disable-next-line no-console
+  //
+  // // eslint-disable-next-line no-console
   console.log('Tokens', tokens);
+
 }
 
 module.exports = {

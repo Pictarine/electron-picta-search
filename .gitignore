@@ -5,6 +5,7 @@ pigments-report.json
 app/renderer/lib/
 dist/
 coverage/
+.idea
 
 # intermediate step
 # at the moment, we have had trouble with `yarn install` with the following env

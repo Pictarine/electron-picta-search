@@ -25,6 +25,18 @@
     "type": "git",
     "url": "https://github.com/DextApp/dext"
   },
+  "build": {
+    "appId": "picta-search.electron-macos-win32",
+    "protocols": {
+      "name": "picta-search",
+      "schemes": ["picta-search"]
+    },
+    "mac": {
+      "category": "public.app-category.Reference"
+    },
+    "win": {
+    }
+  },
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.9.0",
