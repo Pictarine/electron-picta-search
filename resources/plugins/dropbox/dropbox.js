@@ -48,9 +48,6 @@ module.exports = {
 
           const meta = file.metadata.metadata;
 
-          // eslint-disable-next-line no-console
-          console.log(meta.path_display)
-
           const item = {
             title: meta.path_display,
             subtitle: meta.client_modified ? `${meta['.tag']} - ${meta.client_modified}` : meta['.tag'],
