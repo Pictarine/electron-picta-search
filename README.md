@@ -10,6 +10,7 @@ Fork from https://github.com/DextApp/dext
 * Fix queryHelper empty array error
 * Fix prod webpack
 * Fix archive and package scripts
+* Rewrite github search plugin (md => html, got => axios)
 * Update all dep
 * Update BrowserWindow to load node content
 * Update mathjs lib eval => evaluate

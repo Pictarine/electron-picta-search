@@ -1,8 +1,5 @@
-// GitHub icon by Freepik <http://www.flaticon.com/free-icon/github-mascot-logo-variant_38521#term=github&page=1&position=30>
-
 const axios = require('axios');
 
-// default API endpoint
 const ENDPOINT = 'https://api.github.com';
 
 /**
@@ -13,26 +10,18 @@ const ENDPOINT = 'https://api.github.com';
  * @return {Promise}
  */
 const makeRequest = (endpoint, options) => {
-  const opts = Object.assign({}, {json: true}, options);
+
   const url = `${ENDPOINT}/${endpoint.replace(/^\//, '')}`;
-  const prom = axios(url, {params:opts});
+
+  const prom = axios.get(url, {
+    params: options,
+    headers: {
+      'Accept': 'application/vnd.github.VERSION.html'
+    }
+  });
   return new Promise((resolve) => {
     prom.then(res => resolve(res.data));
   });
-};
-
-/**
- * Converst relative URLs into absolute URLs for the given repo
- *
- * @param {String} html
- * @param {String} fullName
- * @return {String}
- */
-const applyRelativeUrls = (html, fullName) => {
-  const url = `https://github.com/${fullName}/blob/master`;
-  // replace images
-  const parsed = html.replace(/\(([\w\d\s]+\.(?:png|gif|jpg|jpeg)+.*)\)/g, `(${url}/$1)`);
-  return parsed;
 };
 
 /**
@@ -60,29 +49,16 @@ const mapItems = item => Object.assign({}, {
   },
 });
 
-/**
- * Converts a base64 string to utf8
- */
-const base64ToUTF8 = (content) => {
-  const buff = Buffer.from(content || '', 'base64');
-  return buff.toString('utf8');
-};
-
 module.exports = {
   keyword: 'gh',
   action: 'openurl',
   helper: {
     title: 'Search GitHub repositories.',
-    subtitle: 'Example: gh dext',
-    icon: {
-      path: './icon.png',
-    },
+    subtitle: 'Example: gh gif',
   },
   query: q => new Promise((resolve) => {
     const opts = {
-      query: {
-        q: `${q} in:name`,
-      },
+      q: `${q} in:name`,
     };
     // searches the API for repositories by name
     // https://developer.github.com/v3/search/#search-repositories
@@ -95,12 +71,15 @@ module.exports = {
       });
   }),
   details: {
-    type: 'md',
+    type: 'html',
+
     // retrieve the preferred README file
     // https://developer.github.com/v3/repos/contents/#get-the-readme
     render: item => new Promise((resolve) => {
       makeRequest(`/repos/${item.title}/readme`)
-        .then(body => resolve(applyRelativeUrls(base64ToUTF8(body.content), item.title)));
+        .then(body => {
+          resolve(body);
+        });
     }),
   },
 };

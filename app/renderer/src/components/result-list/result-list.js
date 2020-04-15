@@ -130,10 +130,6 @@ class ResultList extends Component {
   retrieveDetails = index => {
 
     if (this.props.results[index]) {
-
-      // eslint-disable-next-line no-console
-      console.log('Retrieve details');
-
       ipcRenderer.send(IPC_ITEM_DETAILS_REQUEST, this.props.results[index]);
     }
   };
