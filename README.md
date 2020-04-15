@@ -25,6 +25,7 @@ Fork from https://github.com/DextApp/dext
 * Add Drive oauth + search for files as a core plugin
 * Add start at login menu item
 * Add dmg creation
+* Add the possibility to open the app on every screen
 
 ## Incoming
 

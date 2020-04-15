@@ -87,8 +87,14 @@ const repositionWindow = () => {
  */
 const toggleMainWindow = () => {
   repositionWindow();
-  if (win.isVisible()) hideWindow();
-  else win.show();
+  if (win.isVisible()) {
+    hideWindow();
+  } else {
+    win.setVisibleOnAllWorkspaces(true); // put the window on all screens
+    win.focus(); // focus the window up front on the active screen
+    win.setVisibleOnAllWorkspaces(false); // disable all screen behavior
+    win.show();
+  }
 };
 
 /**
