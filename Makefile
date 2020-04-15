@@ -6,3 +6,10 @@ dev:
 
 install:
 	npm install
+
+clear:
+	rm -rf ~/Library/Saved\ Application\ State/com.electron.dext.savedState/
+	rm -rf ~/Library/Saved\ Application\ State/com.electron.lookr.savedState/
+	rm -rf ~/.dext
+	rm -rf ~/Library/Application\ Support/lookr
+
