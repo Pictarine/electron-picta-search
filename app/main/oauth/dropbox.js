@@ -57,12 +57,53 @@ function signInWithPopup() {
     // eslint-disable-next-line no-console
     console.log('authUrl', authUrl);
 
-    authWindow.loadURL(authUrl)
+    authWindow.loadURL(authUrl, {userAgent: 'Chrome'})
+  })
+}
+
+function getDropboxTokens(code) {
+
+  return new Promise((resolve, reject) => {
+    const tokenUrl = "https://api.dropboxapi.com/oauth2/token"
+    const params = {
+      "code": code,
+      "grant_type": "authorization_code",
+      "client_id": DROPBOX_CLIENT_ID,
+      "client_secret": DROPBOX_CLIENT_SECRET,
+      "redirect_uri": `${REDIRECT_URI}dropbox`
+    }
+
+    const data = Object.entries(params)
+      .map(([key, val]) => `${key}=${encodeURIComponent(val)}`)
+      .join('&');
+
+    const options = {
+      method: 'POST',
+      headers: {'content-type': 'application/x-www-form-urlencoded'},
+      data,
+      url: tokenUrl,
+    };
+
+    axios(options)
+      .then(res => {
+        resolve(res.data);
+      })
+      .catch(err => {
+        reject(err);
+      })
+
   })
 }
 
 async function dropboxSignIn() {
-  const code = await signInWithPopup()
+  const code = await signInWithPopup();
+
+  const tokens = await getDropboxTokens(code);
+
+  store.set('dropbox_tokens', tokens);
+
+  // eslint-disable-next-line no-console
+  console.log('Dropbox Tokens', tokens);
 }
 
 module.exports = {

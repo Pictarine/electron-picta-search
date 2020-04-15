@@ -29,11 +29,12 @@ module.exports = {
   },
   query: q => new Promise(resolve => {
 
-    if (!q && q === '') {
-      return [];
+    if ( (!q && q === '') || !store.get('google_tokens')) {
+      resolve({items: []});
+      return;
     }
 
-    oauth2Client.setCredentials(store.get('tokens'));
+    oauth2Client.setCredentials(store.get('google_tokens'));
     gmail.users.messages.list({userId: 'me', maxResults: 10, q})
       .then(res => {
 

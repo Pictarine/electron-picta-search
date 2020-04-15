@@ -79,7 +79,7 @@ async function googleSignIn() {
 
   const {tokens} = await oauth2Client.getToken(code)
 
-  store.set('tokens', tokens);
+  store.set('google_tokens', tokens);
   oauth2Client.setCredentials(tokens);
 
   // eslint-disable-next-line no-console
