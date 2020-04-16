@@ -44,6 +44,7 @@ const {
 } = require('../constants');
 const Config = require('./utils/conf');
 const {debounce, hasOwnProp, getOwnProp, isDarkModeEnabled} = require('./utils/helpers');
+const pkg = require('../../package.json')
 
 const {PLUGIN_PATH} = utils.paths;
 const {
@@ -282,7 +283,7 @@ const createWindow = (theme) => {
 // create the Context Menu for the Tray
 const contextMenu = [
   {
-    label: 'Toggle Dext',
+    label: `Toggle ${pkg.name}`,
     type: 'normal',
     click: () => {
       toggleMainWindow();
