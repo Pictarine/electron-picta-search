@@ -470,13 +470,18 @@ app.setAsDefaultProtocolClient('picta-search')
 // Protocol handler for osx
 app.on('open-url', function (event, url) {
   event.preventDefault()
+  // eslint-disable-next-line no-console
   console.log(`DEEP LINKING: ${url}`)
   try {
     const reg = /picta-search:\/\/oauth\/([^/]+)\/(.+)/
     const m = url.match(reg)
+    // eslint-disable-next-line no-console
     console.log(decodeURIComponent(m[2]))
+
     const tokenObj = JSON.parse(decodeURIComponent(m[2]))
+    // eslint-disable-next-line no-console
     console.log(tokenObj)
+
     const rawOauth = tokenObj.raw_oauth ?? tokenObj.raw
     googleSignIn(rawOauth)
     const w = new BrowserWindow({
