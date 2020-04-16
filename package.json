@@ -1,5 +1,5 @@
 {
-  "name": "lookr",
+  "name": "PictaSearch",
   "version": "1.0.0",
   "description": "A fork from dext launcher.",
   "main": "app/main/index.js",
@@ -20,7 +20,7 @@
     "test:watch": "jest --watch",
     "test": "jest --coverage --verbose"
   },
-  "author": "Vu Tran <vu@vu-tran.com>",
+  "author": "Pictarine Inc.",
   "repository": {
     "type": "git",
     "url": "https://github.com/DextApp/dext"
