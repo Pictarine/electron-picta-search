@@ -4,16 +4,10 @@ const Store = require('electron-store');
 const store = new Store();
 
 const {
-  GOOGLE_CLIENT_ID,
-  GOOGLE_CLIENT_SECRET,
-  GOOGLE_REDIRECT_URI,
-} = require('../../../app/constants')
+  OAuth2Custom
+} = require('../../../app/main/utils/helpers/google_custom_oauth');
 
-const oauth2Client = new google.auth.OAuth2(
-  GOOGLE_CLIENT_ID,
-  GOOGLE_CLIENT_SECRET,
-  GOOGLE_REDIRECT_URI
-);
+const oauth2Client = new OAuth2Custom();
 
 const drive = google.drive({
   version: 'v3',
@@ -29,7 +23,7 @@ module.exports = {
   },
   query: q => new Promise((resolve) => {
 
-    if ( (!q && q === '') || !store.get('google_tokens')) {
+    if ((!q && q === '') || !store.get('google_tokens')) {
       resolve({items: []});
       return;
     }

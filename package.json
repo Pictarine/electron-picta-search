@@ -77,27 +77,28 @@
     "webpack-merge": "^4.1.0"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "browser-bookmarks": "^0.3.0",
+    "buffer": "^5.6.0",
     "deep-assign": "^3.0.0",
     "dext-core-utils": "^0.6.0",
+    "electron-store": "^5.1.1",
     "escope": "^3.6.0",
+    "file-icon": "^3.1.0",
     "glamor": "^2.20.40",
+    "googleapis": "^48.0.0",
     "markdown-it": "^10.0.0",
     "mathjs": "^6.6.2",
     "npm": "^6.14.4",
+    "os-apps": "^0.2.1",
     "plist": "^3.0.1",
     "prop-types": "^15.7.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-test-renderer": "16.13.1",
-    "string_score": "^0.1.22",
     "request": "^2.88.2",
-    "file-icon": "^3.1.0",
-    "os-apps": "^0.2.1",
-    "urlencode": "^1.1.0",
-    "axios": "^0.19.2",
-    "electron-store": "^5.1.1",
-    "googleapis": "^48.0.0"
+    "string_score": "^0.1.22",
+    "urlencode": "^1.1.0"
   },
   "engines": {
     "node": ">= 13.0.0"

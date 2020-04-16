@@ -28,6 +28,7 @@ rules:
   jest/valid-expect: error
   no-underscore-dangle: 0
   prefer-destructuring: 0
+  prefer-const: 0
   react/display-name: 0
   no-undef: 0
 settings:

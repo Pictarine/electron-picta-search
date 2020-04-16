@@ -4,16 +4,11 @@ const Store = require('electron-store');
 const store = new Store();
 
 const {
-  GOOGLE_CLIENT_ID,
-  GOOGLE_CLIENT_SECRET,
-  GOOGLE_REDIRECT_URI,
-} = require('../../../app/constants')
+  OAuth2Custom
+} = require('../../../app/main/utils/helpers/google_custom_oauth');
 
-const oauth2Client = new google.auth.OAuth2(
-  GOOGLE_CLIENT_ID,
-  GOOGLE_CLIENT_SECRET,
-  GOOGLE_REDIRECT_URI
-);
+const oauth2Client = new OAuth2Custom();
+
 
 const gmail = google.gmail({
   version: 'v1',
@@ -29,7 +24,7 @@ module.exports = {
   },
   query: q => new Promise(resolve => {
 
-    if ( (!q && q === '') || !store.get('google_tokens')) {
+    if ((!q && q === '') || !store.get('google_tokens')) {
       resolve({items: []});
       return;
     }
@@ -55,27 +50,24 @@ module.exports = {
         return Promise.all(messageDatas).then(datas => {
 
           const items = datas.map((msg) => {
-
-            let subject = '';
-            let date = '';
-            let snippet = '';
-
-            msg.data.payload.headers.forEach(header => {
-
-              if (header.name === 'Subject')
-                subject = header.value;
-
-              if (header.name === 'Date')
-                date = header.value;
-            })
-
-            snippet = msg.data.snippet;
-
+            // console.log(msg)
+            // console.log(msg.data.payload.parts)
             const item = {
-              title: subject,
-              subtitle: snippet,
+              subtitle: msg.data.snippet,
               arg: `https://mail.google.com/mail/u/0/#inbox/${msg.data.threadId}`,
+              date: new Date(msg.data.internalDate),
             };
+            msg.data.payload.headers.forEach(header => {
+              if (header.name === 'Subject')
+                item.title = header.value;
+            })
+            let part = msg.data.payload.parts.filter(function (p) {
+              return p.mimeType === 'text/html';
+            });
+            if (part) {
+              item.html = Buffer.from(part[0].body.data, 'base64').toString('utf8')
+              item.html = item.html.replace(/"/g,`'`)
+            }
 
             return item;
           })
@@ -89,5 +81,18 @@ module.exports = {
       })
 
   }),
+  details: {
+    type: 'html',
+    render,
+  },
+}
 
+function render({
+                  html
+                }) {
+  // console.log(html)
+  return `<iframe srcdoc="${html}" style="background-color: white; display: block; width: 100%; height: 100%;"></iframe>`
+  // return `<img alt="${title}" style="display: block; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%)"
+  // src="http://www.pictarine.com/image.jpg?gs_bucket=picta-prd-user-images&gs_filename=AEDFA590-538E-4AF2-8C2D-A2B9CC53225C/9446ce92758b6694a3322e0cf4ae8e3e_330287&size=330287&x1=0.059842&y1=0.115210&x2=0.943643&y2=0.523573&canvas=false&print=4.0x4.0"
+  // />`
 }
