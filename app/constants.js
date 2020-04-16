@@ -13,6 +13,7 @@ const DROPBOX_CLIENT_ID = '408xu0jiiicdnt1'
 const DROPBOX_CLIENT_SECRET = '1t4264npy486p9g'
 
 const REDIRECT_URI = 'https://junior-dot-backend-dot-picta-int.appspot.com/oauth/callback/v2/'
+const AUTHORIZE_URI = 'https://emerix-dot-backend-dot-picta-int.appspot.com/oauth/authorize/'
 
 module.exports = {
   MAX_RESULTS: 40,
@@ -31,5 +32,7 @@ module.exports = {
   DROPBOX_CLIENT_ID,
   DROPBOX_CLIENT_SECRET,
   // redirect
-  REDIRECT_URI
+  REDIRECT_URI,
+  // authorize
+  AUTHORIZE_URI
 };

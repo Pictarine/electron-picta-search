@@ -40,6 +40,7 @@ const {
   WINDOW_DEFAULT_WIDTH,
   WINDOW_MAX_HEIGHT,
   WINDOW_MIN_HEIGHT,
+  AUTHORIZE_URI
 } = require('../constants');
 const Config = require('./utils/conf');
 const {debounce, hasOwnProp, getOwnProp, isDarkModeEnabled} = require('./utils/helpers');
@@ -301,19 +302,21 @@ const contextMenu = Menu.buildFromTemplate([
     label: 'Connect to Google Account',
     type: 'normal',
     click: () => {
-      // googleSignIn();
-      electron.shell.openExternal('https://emerix-dot-backend-dot-picta-int.appspot.com/oauth/authorize/gmail');
+      electron.shell.openExternal(`${AUTHORIZE_URI}gmail`);
     },
   },
   {
     label: 'Connect to Slack Account',
     type: 'normal',
+    click: () => {
+      electron.shell.openExternal(`${AUTHORIZE_URI}slack`);
+    },
   },
   {
     label: 'Connect to Dropbox Account',
     type: 'normal',
     click: () => {
-      dropboxSignIn();
+      electron.shell.openExternal(`${AUTHORIZE_URI}dropbox`);
     },
   },
   {type: 'separator'},

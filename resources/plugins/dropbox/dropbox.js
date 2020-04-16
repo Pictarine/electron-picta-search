@@ -3,12 +3,6 @@ const axios = require('axios');
 
 const store = new Store();
 
-const {
-  DROPBOX_CLIENT_ID,
-  DROPBOX_CLIENT_SECRET,
-} = require('../../../app/constants')
-
-
 module.exports = {
   action: 'openurl',
   helper: {
