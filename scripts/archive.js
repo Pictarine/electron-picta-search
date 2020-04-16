@@ -3,13 +3,13 @@ const chalk = require('chalk');
 const createDMG = require('electron-installer-dmg')
 const pkg = require('../package.json')
 
-const appPath = path.resolve(__dirname, '..', 'dist', 'package', 'lookr-darwin-x64', 'lookr.app');
+const appPath = path.resolve(__dirname, '..', 'dist', 'package', `${pkg.name}-darwin-x64`, `${pkg.name}.app`);
 
 const DEFAULT_OPTIONS = {
   appPath,
   name: pkg.name,
   out: './dist/release',
-  icon: path.resolve(__dirname, '..', 'resources', 'icon.icns'),
+  icon: path.resolve(__dirname, '..', 'resources', 'icon-original.png'),
   title: pkg.name,
   overwrite: true,
   contents: [

@@ -7,7 +7,7 @@ const DEFAULT_OPTIONS = {
   name: pkg.name,
   dir: path.resolve(__dirname, '..'),
   out: './dist/package',
-  icon: path.resolve(__dirname, '..', 'resources', 'icon.icns'),
+  icon: path.resolve(__dirname, '..', 'resources', 'icon-original.png'),
   overwrite: true,
   prune: true,
   /* ignore: [
