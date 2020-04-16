@@ -9,7 +9,7 @@ const DEFAULT_OPTIONS = {
   appPath,
   name: pkg.name,
   out: './dist/release',
-  icon: path.resolve(__dirname, '..', 'resources', 'icon-original.png'),
+  icon: path.resolve(__dirname, '..', 'resources', 'icon.icns'),
   title: pkg.name,
   overwrite: true,
   contents: [

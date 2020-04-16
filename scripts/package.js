@@ -7,13 +7,12 @@ const DEFAULT_OPTIONS = {
   name: pkg.name,
   dir: path.resolve(__dirname, '..'),
   out: './dist/package',
-  icon: path.resolve(__dirname, '..', 'resources', 'icon-original.png'),
+  icon: path.resolve(__dirname, '..', 'resources', 'icon.icns'),
   overwrite: true,
   prune: true,
-  /* ignore: [
+  ignore: [
     '__mocks__/',
-    'dist/',
-    'docs/',
+    'docs/.*.md',
     'scripts/',
     '.babelrc',
     '.DS_Store',
@@ -25,7 +24,7 @@ const DEFAULT_OPTIONS = {
     'webpack.config.js',
     'webpack.config.prod.js',
     'webpack.config.dev.js',
-  ], */
+  ],
 };
 
 /**
