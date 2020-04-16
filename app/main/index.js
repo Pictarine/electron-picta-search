@@ -56,6 +56,8 @@ const {
   ipcMain,
 } = electron;
 
+const store = new Store();
+
 let win = null;
 let tray = null;
 
@@ -278,7 +280,7 @@ const createWindow = (theme) => {
 };
 
 // create the Context Menu for the Tray
-const contextMenu = Menu.buildFromTemplate([
+const contextMenu = [
   {
     label: 'Toggle Dext',
     type: 'normal',
@@ -299,24 +301,40 @@ const contextMenu = Menu.buildFromTemplate([
   },
   {type: 'separator'},
   {
-    label: 'Connect to Google Account',
+    label: store.get('google_tokens') ? 'Disconnect from Google Account' : 'Connect to Google Account',
     type: 'normal',
     click: () => {
-      electron.shell.openExternal(`${BACKEND_ENDPOINT}/oauth/authorize/google`);
+      if (!store.get('google_tokens')) {
+        electron.shell.openExternal(`${BACKEND_ENDPOINT}/oauth/authorize/google`);
+      } else {
+        // eslint-disable-next-line no-use-before-define
+        disconnectFromService('google');
+      }
+
     },
   },
   {
-    label: 'Connect to Slack Account',
+    label: store.get('slack_tokens') ? 'Disconnect from Slack Account' : 'Connect to Slack Account',
     type: 'normal',
     click: () => {
-      electron.shell.openExternal(`${BACKEND_ENDPOINT}/oauth/authorize/slack`);
+      if (!store.get('slack_tokens')) {
+        electron.shell.openExternal(`${BACKEND_ENDPOINT}/oauth/authorize/slack`);
+      } else {
+        // eslint-disable-next-line no-use-before-define
+        disconnectFromService('slack');
+      }
     },
   },
   {
-    label: 'Connect to Dropbox Account',
+    label: store.get('dropbox_tokens') ? 'Disconnect from Dropbox Account' : 'Connect to Dropbox Account',
     type: 'normal',
     click: () => {
-      electron.shell.openExternal(`${BACKEND_ENDPOINT}/oauth/authorize/dropbox`);
+      if (!store.get('dropbox_tokens')) {
+        electron.shell.openExternal(`${BACKEND_ENDPOINT}/oauth/authorize/dropbox`);
+      } else {
+        // eslint-disable-next-line no-use-before-define
+        disconnectFromService('dropbox');
+      }
     },
   },
   {type: 'separator'},
@@ -327,7 +345,20 @@ const contextMenu = Menu.buildFromTemplate([
       app.quit();
     },
   },
-]);
+]
+
+const disconnectFromService = (service) => {
+  store.delete(`${service}_tokens`);
+
+  const label = `Connect to ${service.charAt(0).toUpperCase() + service.slice(1)} Account`;
+  if (service === 'google')
+    contextMenu[3].label = label;
+  if (service === 'slack')
+    contextMenu[4].label = label;
+  if (service === 'dropbox')
+    contextMenu[5].label = label;
+  tray.setContextMenu(Menu.buildFromTemplate(contextMenu));
+}
 
 const registerIpcListeners = ({plugins, registeredWindow}) => {
   // expand and collapse window based on the results
@@ -378,7 +409,7 @@ const onAppReady = () => {
     )
   );
 
-  tray.setContextMenu(contextMenu);
+  tray.setContextMenu(Menu.buildFromTemplate(contextMenu));
 
   // loads the theme
   const t = config.get('theme') || '';
@@ -393,7 +424,7 @@ const onAppReady = () => {
       const indexPath = `file://${rendererPath}/index.html`;
 
       win.loadURL(indexPath);
-      win.setMenu(contextMenu);
+      win.setMenu(Menu.buildFromTemplate(contextMenu));
       win.on('closed', () => {
         win = null;
       });
@@ -471,19 +502,29 @@ app.setAsDefaultProtocolClient('picta-search')
 app.on('open-url', function (event, url) {
   event.preventDefault()
   console.log(`DEEP LINKING: ${url}`)
+  const w = new BrowserWindow({
+    width: 500,
+    height: 600,
+    show: true,
+  })
+
   try {
     const reg = /picta-search:\/\/oauth\/([^/]+)\/(.+)/
     const m = url.match(reg)
     const service = m[1]
     const tokenObj = JSON.parse(decodeURIComponent(m[2]))
     console.log(tokenObj)
-    const store = new Store();
     store.set(`${service}_tokens`, tokenObj.raw);
-    const w = new BrowserWindow({
-      width: 500,
-      height: 600,
-      show: true,
-    })
+
+    const label = `Disconnect from ${service.charAt(0).toUpperCase() + service.slice(1)} Account`;
+    if (service === 'google')
+      contextMenu[3].label = label;
+    if (service === 'slack')
+      contextMenu[4].label = label;
+    if (service === 'dropbox')
+      contextMenu[5].label = label;
+    tray.setContextMenu(Menu.buildFromTemplate(contextMenu));
+
     w.loadURL(`file://${__dirname}/oauth_success.html?service=${service}`)
   } catch (e) {
     console.log(e)
