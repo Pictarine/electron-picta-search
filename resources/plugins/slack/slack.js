@@ -12,10 +12,44 @@ module.exports = {
   },
   query: q => new Promise((resolve) => {
 
-    if ((!q && q === '') || !store.get('dropbox_tokens')) {
+    if ((!q && q === '') || !store.get('slack_tokens')) {
       resolve({items: []});
       return;
     }
+
+    const token = store.get('slack_tokens');
+
+    const searchUrl = `https://slack.com/api/search.all`
+
+    axios.get(searchUrl, {
+      params: {
+        token: token.token,
+        query: q
+      }
+    }).then(res => {
+      let items = [];
+
+      if (res.data.messages || !res.data.messages.matches || res.data.messages.matches.length === 0) {
+        resolve(items);
+        return;
+      }
+
+      res.data.messages.matches.forEach(mess => {
+
+         const item = {
+            title: mess.text,
+            subtitle: `From ${mess.username}`,
+            arg: mess.permalink,
+          };
+
+          items.push(item);
+
+      });
+
+      resolve({items});
+    }).catch(err => {
+      resolve({items: []});
+    })
 
     resolve({items: []});
   })

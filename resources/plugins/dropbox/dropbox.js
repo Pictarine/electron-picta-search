@@ -36,7 +36,7 @@ module.exports = {
 
       let items = [];
       if (!res.data.matches || res.data.matches.length === 0) {
-        resolve(items);
+        resolve({items: []});
         return;
       }
 
