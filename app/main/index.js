@@ -222,7 +222,7 @@ const handleQueryCommand = (evt, {q: queryPhrase}, plugins) => {
       .filter((i) => {
         const score = i.title.toLowerCase().score(keyword);
         // eslint-disable-next-line no-extra-boolean-cast
-        return Boolean(score) ? score > 0.25 : true; // return by default if there is no score in the first place.
+        return Boolean(score) ? score > 0.05 : true; // return by default if there is no score in the first place.
       })
       // filter max results
       .slice(0, MAX_RESULTS);

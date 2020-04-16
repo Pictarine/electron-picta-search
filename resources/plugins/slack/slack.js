@@ -23,14 +23,15 @@ module.exports = {
 
     axios.get(searchUrl, {
       params: {
-        token: token.token,
+        token: token.access_token,
         query: q
       }
     }).then(res => {
+
       let items = [];
 
-      if (res.data.messages || !res.data.messages.matches || res.data.messages.matches.length === 0) {
-        resolve(items);
+      if (!res.data.messages || !res.data.messages.matches || res.data.messages.matches.length === 0) {
+        resolve({items});
         return;
       }
 
@@ -51,6 +52,5 @@ module.exports = {
       resolve({items: []});
     })
 
-    resolve({items: []});
   })
 }
