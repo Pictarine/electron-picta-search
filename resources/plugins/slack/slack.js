@@ -17,5 +17,6 @@ module.exports = {
       return;
     }
 
+    resolve({items: []});
   })
 }
