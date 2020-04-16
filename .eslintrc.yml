@@ -32,4 +32,8 @@ rules:
   no-undef: 0
 settings:
   import/resolver:
-    babel-module: {}
+    node:
+      extensions: ['.js', '.jsx', '.ts', '.tsx']
+      moduleDirectory:
+        - node_modules
+        - .

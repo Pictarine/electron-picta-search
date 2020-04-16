@@ -1,10 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Congrats</title>
+  <meta charset="UTF-8">
+  <title>Yeah!</title>
+  <style>
+    body {
+      text-align: center;
+      color: #3d3938;
+      font-family: sans-serif;
+    }
+    #service {
+      text-transform: capitalize;
+      font-weight: bold;
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+      console.log('yo mama')
+      const url = new URL(window.location.href);
+      const service = url.searchParams.get("service");
+      console.log(service);
+      document.getElementById('service').innerText=service
+    })
+  </script>
 </head>
 <body>
-<h1>Congrats! You have been logged in</h1>
+<h1>Congratulation!</h1>
+<p>You are now able search <span id="service"></span>.<br>You can safely close this window.</p>
 </body>
 </html>

@@ -2,6 +2,7 @@ require('string_score');
 const path = require('path');
 const electron = require('electron');
 const {utils} = require('dext-core-utils');
+const Store = require('electron-store');
 const {
   loadPlugins,
   queryResults,
@@ -30,7 +31,6 @@ const {
   IPC_FETCH_ICON,
   IPC_RETRIEVE_ICON,
 } = require('../ipc');
-const {googleSignIn, dropboxSignIn} = require('./oauth');
 const {
   MAX_RESULTS,
   CORE_PLUGIN_PATH,
@@ -40,12 +40,10 @@ const {
   WINDOW_DEFAULT_WIDTH,
   WINDOW_MAX_HEIGHT,
   WINDOW_MIN_HEIGHT,
-  AUTHORIZE_URI
+  BACKEND_ENDPOINT,
 } = require('../constants');
 const Config = require('./utils/conf');
 const {debounce, hasOwnProp, getOwnProp, isDarkModeEnabled} = require('./utils/helpers');
-
-const pkg = require('../../package.json')
 
 const {PLUGIN_PATH} = utils.paths;
 const {
@@ -282,7 +280,7 @@ const createWindow = (theme) => {
 // create the Context Menu for the Tray
 const contextMenu = Menu.buildFromTemplate([
   {
-    label: `Toggle ${pkg.name}`,
+    label: 'Toggle Dext',
     type: 'normal',
     click: () => {
       toggleMainWindow();
@@ -304,21 +302,21 @@ const contextMenu = Menu.buildFromTemplate([
     label: 'Connect to Google Account',
     type: 'normal',
     click: () => {
-      electron.shell.openExternal(`${AUTHORIZE_URI}gmail`);
+      electron.shell.openExternal(`${BACKEND_ENDPOINT}/oauth/authorize/google`);
     },
   },
   {
     label: 'Connect to Slack Account',
     type: 'normal',
     click: () => {
-      electron.shell.openExternal(`${AUTHORIZE_URI}slack`);
+      electron.shell.openExternal(`${BACKEND_ENDPOINT}/oauth/authorize/slack`);
     },
   },
   {
     label: 'Connect to Dropbox Account',
     type: 'normal',
     click: () => {
-      electron.shell.openExternal(`${AUTHORIZE_URI}dropbox`);
+      electron.shell.openExternal(`${BACKEND_ENDPOINT}/oauth/authorize/dropbox`);
     },
   },
   {type: 'separator'},
@@ -373,7 +371,7 @@ const registerIpcListeners = ({plugins, registeredWindow}) => {
  * register hotkeys, and loading plugins
  */
 const onAppReady = () => {
-  // loads the tray
+  // loads the  tray
   tray = new Tray(
     nativeImage.createFromPath(
       path.resolve(__dirname, '..', '..', 'resources', isDarkModeEnabled ? 'icon-dark-mode.png' : 'icon.png')
@@ -472,27 +470,21 @@ app.setAsDefaultProtocolClient('picta-search')
 // Protocol handler for osx
 app.on('open-url', function (event, url) {
   event.preventDefault()
-  // eslint-disable-next-line no-console
   console.log(`DEEP LINKING: ${url}`)
   try {
     const reg = /picta-search:\/\/oauth\/([^/]+)\/(.+)/
     const m = url.match(reg)
-    // eslint-disable-next-line no-console
-    console.log(decodeURIComponent(m[2]))
-
+    const service = m[1]
     const tokenObj = JSON.parse(decodeURIComponent(m[2]))
-    // eslint-disable-next-line no-console
     console.log(tokenObj)
-
-    const rawOauth = tokenObj.raw_oauth ?? tokenObj.raw
-    googleSignIn(rawOauth)
+    const store = new Store();
+    store.set(`${service}_tokens`, tokenObj.raw);
     const w = new BrowserWindow({
       width: 500,
       height: 600,
       show: true,
     })
-    w.loadURL(`file://${__dirname}/oauth_success.html`)
-
+    w.loadURL(`file://${__dirname}/oauth_success.html?service=${service}`)
   } catch (e) {
     console.log(e)
     w.loadURL(`file://${__dirname}/oauth_fail.html`)
