@@ -15,6 +15,7 @@ Fork from https://github.com/DextApp/dext
 * Update BrowserWindow to load node content
 * Update mathjs lib eval => evaluate
 * Update "open link in browser" with a regex to only present to domain name instead of the whole url
+* Update screen saver script for Mojave+, remove screen-saver npm package
 * Add Dark Mode for icon in status bar (will create a new icon after)
 * Add new status bar menu items to connect 3rd parties account
 * Add [applications search](https://github.com/vutran/dext-darwin-applications-plugin) as a core plugin
