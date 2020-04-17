@@ -61,12 +61,20 @@ module.exports = {
               if (header.name === 'Subject')
                 item.title = header.value;
             })
-            let part = msg.data.payload.parts.filter(function (p) {
-              return p.mimeType === 'text/html';
-            });
-            if (part) {
-              item.html = Buffer.from(part[0].body.data, 'base64').toString('utf8')
-              item.html = item.html.replace(/"/g,`'`)
+
+            if (msg.data.payload.mimeType === 'multipart/alternative' && msg.data.payload.parts) {
+
+              let part = msg.data.payload.parts.filter(function (p) {
+                return p.mimeType === 'text/html';
+              });
+
+              if (part) {
+                item.html = Buffer.from(part[0].body.data, 'base64').toString('utf8')
+                item.html = item.html.replace(/"/g, `'`)
+              }
+            } else if (msg.data.payload.mimeType === 'text/html' && msg.data.payload.body.data) {
+              item.html = Buffer.from(msg.data.payload.body.data, 'base64').toString('utf8')
+              item.html = item.html.replace(/"/g, `'`)
             }
 
             return item;
