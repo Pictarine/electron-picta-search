@@ -3,6 +3,7 @@ import React from 'react';
 import {ipcRenderer} from 'electron';
 import {compose, pseudo, style} from 'glamor';
 import {IPC_ITEM_DETAILS_RESPONSE} from '../../../../ipc';
+
 const {isDarkModeEnabled} = require('../../../../main/utils/helpers');
 
 class ResultDetails extends React.PureComponent {
@@ -20,10 +21,7 @@ class ResultDetails extends React.PureComponent {
 
   componentDidMount() {
     ipcRenderer.on(IPC_ITEM_DETAILS_RESPONSE, (evt, dtails) => {
-
-      if (dtails) {
-        this.props.onLoad(dtails);
-      }
+      this.props.onLoad(dtails);
     });
   }
 
@@ -54,7 +52,7 @@ class ResultDetails extends React.PureComponent {
       pseudo('::-webkit-scrollbar-thumb', {
         backgroundColor: '#bbb',
       }),
-      this.props.details.length > 0
+      this.props.details.length > 0 || this.props.details
         ? style({
           right: '0%',
         })
