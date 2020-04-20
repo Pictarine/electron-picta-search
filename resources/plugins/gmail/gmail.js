@@ -29,6 +29,11 @@ module.exports = {
       return;
     }
 
+    if (q.match(/(\d+\s*(\*|\/|\+|\-)\s*)+(\d+\s*)/)) {
+      resolve({items: []});
+      return;
+    }
+
     oauth2Client.setCredentials(store.get('google_tokens'));
     gmail.users.messages.list({userId: 'me', maxResults: 10, q})
       .then(res => {

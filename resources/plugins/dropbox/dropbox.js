@@ -21,6 +21,11 @@ module.exports = {
       return;
     }
 
+    if (q.match(/(\d+\s*(\*|\/|\+|\-)\s*)+(\d+\s*)/)) {
+      resolve({items: []});
+      return;
+    }
+
     const searchUrl = "https://api.dropboxapi.com/2/files/search_v2"
     const headers = {
       "Authorization": `Bearer ${store.get('dropbox_tokens').access_token}`,

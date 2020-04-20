@@ -212,7 +212,7 @@ class ResultList extends Component {
             this.props.theme,
             this.props.keys,
             this.state.copiedToClipboard
-          )},
+          )}
 
         </ol>
         {currItem && (

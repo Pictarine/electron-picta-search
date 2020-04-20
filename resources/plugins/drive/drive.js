@@ -28,6 +28,11 @@ module.exports = {
       return;
     }
 
+    if (q.match(/(\d+\s*(\*|\/|\+|\-)\s*)+(\d+\s*)/)) {
+      resolve({items: []});
+      return;
+    }
+
     oauth2Client.setCredentials(store.get('google_tokens'));
 
     drive.files.list({q: `name contains '${q}'`}).then(res => {

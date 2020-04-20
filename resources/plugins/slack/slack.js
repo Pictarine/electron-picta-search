@@ -17,6 +17,11 @@ module.exports = {
       return;
     }
 
+    if (q.match(/(\d+\s*(\*|\/|\+|\-)\s*)+(\d+\s*)/)) {
+      resolve({items: []});
+      return;
+    }
+
     const token = store.get('slack_tokens');
 
     const searchUrl = `https://slack.com/api/search.all`
