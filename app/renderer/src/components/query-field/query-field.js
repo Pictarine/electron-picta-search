@@ -58,6 +58,7 @@ class QueryField extends React.Component {
   focus = () => {
     if (this.queryField) {
       this.queryField.focus();
+      this.props.onChange(this.props.query);
     }
   };
 
