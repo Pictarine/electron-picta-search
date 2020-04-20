@@ -130,8 +130,6 @@ class ResultList extends Component {
     this.props.onClearActiveKey(e.key.toLowerCase());
   };
   setItemFocused = (item) => {
-    // eslint-disable-next-line no-console
-    console.log('Item', item);
 
     let index = this.props.results.indexOf(item)
 
