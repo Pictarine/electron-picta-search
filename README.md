@@ -1,8 +1,20 @@
-# Picta Search
+[![GitHub license](https://img.shields.io/github/license/Pictarine/electron-picta-search.svg)](https://github.com/Pictarine/electron-picta-search/blob/master/LICENSE)
 
-Fork from https://github.com/DextApp/dext
+# Picta Search <img src="https://user-images.githubusercontent.com/1506323/79753368-1a2e9100-8316-11ea-9f91-d7c6f19f7077.png" width="60" height="60"> 
 
-## Updates
+![PictaSearch](https://user-images.githubusercontent.com/1506323/79753045-92e11d80-8315-11ea-82f7-d629dbcdc96c.png)
+
+This project is a fork from [Dext](https://github.com/DextApp/dext) by [Vu Tran](https://github.com/vutran/).
+
+We found that Dext was a good codebase to start from and decided to add new features to it.
+
+## Installation 
+
+Download the dmg file and open the application.
+
+The assistant can be invoked via the status bar menu or by hitting `option ⌥ + space`
+
+## Changelog
 
 * Fix Insecure warning
 * Fix not displaying icons
@@ -36,4 +48,6 @@ Fork from https://github.com/DextApp/dext
 ## Incoming
 
 * Local files search integration
+* Better filtering
+* New third parties API integration
 
