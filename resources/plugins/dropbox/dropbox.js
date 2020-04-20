@@ -50,11 +50,13 @@ module.exports = {
         if (file.metadata && file.metadata.metadata && file.metadata.metadata['.tag'] !== 'folder') {
 
           const meta = file.metadata.metadata;
+          const path = meta.path_display;
+          const matches = path.match(/[^\/]+(?=\/$|$)/);
 
           const item = {
-            title: meta.path_display,
+            title: (matches && matches.length > 0) ? matches[0] : path,
             subtitle: meta.client_modified ? `${meta['.tag']} - ${meta.client_modified}` : meta['.tag'],
-            arg: `${BACKEND_ENDPOINT}/service/dropbox/file?file=${encodeURI(meta.path_display)}`,
+            arg: `${BACKEND_ENDPOINT}/service/dropbox/file?file=${encodeURI(path)}`,
           };
 
           items.push(item);
