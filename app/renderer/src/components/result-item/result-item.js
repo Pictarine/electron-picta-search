@@ -2,6 +2,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {style, compose, hover} from 'glamor';
 import IconWrapper from '../icon-wrapper';
+import {ipcRenderer} from 'electron';
+import {
+  IPC_EXECUTE_ITEM,
+} from '../../../../ipc';
 const { isDarkModeEnabled } = require('../../../../main/utils/helpers');
 
 const activeStyle = {
@@ -112,6 +116,7 @@ export class ResultItem extends React.PureComponent {
     selected: PropTypes.bool,
     keys: PropTypes.arrayOf(PropTypes.string),
     copiedToClipboard: PropTypes.bool,
+    onItemFocused: PropTypes.func.isRequired
   };
 
   isAltMod() {
@@ -139,6 +144,10 @@ export class ResultItem extends React.PureComponent {
       isAltMod: this.isAltMod(),
       isSuperMod: this.isSuperMod(),
     });
+  };
+
+  onMouseOver = () => {
+    this.props.onItemFocused(this.props.item);
   };
 
   render() {
@@ -173,7 +182,8 @@ export class ResultItem extends React.PureComponent {
           themeHover,
           themeSelected
         )}
-        onDoubleClick={this.execute}
+        onClick={this.execute}
+        onMouseOver={this.onMouseOver}
       >
         <div {...icon}>
           <IconWrapper {...item}/>

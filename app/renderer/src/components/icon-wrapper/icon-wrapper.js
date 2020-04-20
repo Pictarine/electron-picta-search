@@ -6,10 +6,10 @@ import { compose, style } from 'glamor';
 const {isDarkModeEnabled} = require('../../../../main/utils/helpers');
 
 const iconImg = style({
-  maxWidth: 40,
-  maxHeight: 40,
-  minWidth: 40,
-  minHeight: 40,
+  maxWidth: 32,
+  maxHeight: 32,
+  minWidth: 32,
+  minHeight: 32,
   objectFit: 'contain',
   backgroundColor: isDarkModeEnabled ? '#F2F2F2' : 'transparent',
   padding: 4,
@@ -23,8 +23,8 @@ const iconImgTextBase = compose(
     color: isDarkModeEnabled ? '#000' : '#fff',
     textDecoration: 'none',
     textAlign: 'center',
-    width: 40,
-    height: 40,
+    width: 32,
+    height: 32,
     lineHeight: '40px',
     fontSize: 20,
     fontWeight: 'bold',

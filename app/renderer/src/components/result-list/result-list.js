@@ -31,6 +31,7 @@ const base = compose(
     width: '100%',
     overflowX: 'hidden',
     overflowY: 'overlay',
+    cursor: 'pointer',
   }),
   pseudo('::-webkit-scrollbar', {
     width: 3,
@@ -71,6 +72,7 @@ class ResultList extends Component {
     onSetActiveKey: PropTypes.func.isRequired,
     onUpdateResults: PropTypes.func.isRequired,
   };
+
   componentDidMount() {
     window.addEventListener('keydown', this.handleKeyDown);
     window.addEventListener('keyup', this.handleKeyUp);
@@ -127,6 +129,21 @@ class ResultList extends Component {
   handleKeyUp = e => {
     this.props.onClearActiveKey(e.key.toLowerCase());
   };
+  setItemFocused = (item) => {
+    // eslint-disable-next-line no-console
+    console.log('Item', item);
+
+    let index = this.props.results.indexOf(item)
+
+    if (index === -1) {
+      return
+    }
+
+    this.props.onSelectItem(this.props.selectedIndex - 1);
+    this.setState({copiedToClipboard: false}, () => {
+      this.retrieveDetails(this.props.selectedIndex);
+    });
+  };
   retrieveDetails = index => {
 
     if (this.props.results[index]) {
@@ -172,6 +189,7 @@ class ResultList extends Component {
         item={item}
         copiedToClipboard={copiedToClipboard}
         selected={selectedIndex === key}
+        onItemFocused={this.setItemFocused}
       />
     ));
 
@@ -196,7 +214,8 @@ class ResultList extends Component {
             this.props.theme,
             this.props.keys,
             this.state.copiedToClipboard
-          )}
+          )},
+
         </ol>
         {currItem && (
           <ResultDetails

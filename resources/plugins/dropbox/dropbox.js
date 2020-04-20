@@ -4,7 +4,7 @@ const axios = require('axios');
 const store = new Store();
 
 const {
-  BACK_URI
+  BACKEND_ENDPOINT
 } = require('../../../app/constants')
 
 module.exports = {
@@ -49,7 +49,7 @@ module.exports = {
           const item = {
             title: meta.path_display,
             subtitle: meta.client_modified ? `${meta['.tag']} - ${meta.client_modified}` : meta['.tag'],
-            arg: `${BACK_URI}/service/dropbox/file?file=${encodeURI(meta.path_display)}`,
+            arg: `${BACKEND_ENDPOINT}/service/dropbox/file?file=${encodeURI(meta.path_display)}`,
           };
 
           items.push(item);

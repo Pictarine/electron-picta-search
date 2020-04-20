@@ -10,6 +10,7 @@ Fork from https://github.com/DextApp/dext
 * Fix queryHelper empty array error
 * Fix prod webpack
 * Fix archive and package scripts
+* Fix list-item missing import + add click execut instead of double click
 * Rewrite github search plugin (md => html, got => axios)
 * Update all dep
 * Update BrowserWindow to load node content
@@ -30,6 +31,7 @@ Fork from https://github.com/DextApp/dext
 * Add dmg creation
 * Add the possibility to open the app on every screen
 * Add deeplink integration for oauth on every services
+* MouseOver and arrow keyboard keys are now synced
 
 ## Incoming
 

@@ -2,7 +2,7 @@ const path = require('path');
 
 const WINDOW_DEFAULT_WIDTH = 700;
 const WINDOW_DEFAULT_HEIGHT = 80;
-const WINDOW_MIN_HEIGHT = 80;
+const WINDOW_MIN_HEIGHT = 65;
 // results + query + padding
 const WINDOW_MAX_HEIGHT = 710;
 
