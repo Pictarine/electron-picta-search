@@ -66,6 +66,8 @@ let tray = null;
 const config = new Config();
 const hideWindow = () => win && win.hide();
 
+let query = ''
+
 /**
  * Repositions the window based on the mouse's active screen
  */
@@ -231,7 +233,8 @@ const handleQueryCommand = (evt, {q: queryPhrase}, plugins) => {
       .slice(0, MAX_RESULTS);
 
     // send the results back to the renderer
-    evt.sender.send(IPC_QUERY_RESULTS, retval || []);
+    if (keyword === query)
+      evt.sender.send(IPC_QUERY_RESULTS, retval || []);
   });
 };
 
@@ -371,8 +374,10 @@ const registerIpcListeners = ({plugins, registeredWindow}) => {
 
   // listen to query commands and queries
   // for results and sends it to the renderer
-  ipcMain.on(IPC_QUERY_COMMAND, (evt, message) =>
-    debounceHandleQueryCommand(evt, message, plugins)
+  ipcMain.on(IPC_QUERY_COMMAND, (evt, message) => {
+      query = message.q;
+      debounceHandleQueryCommand(evt, message, plugins)
+    }
   );
 
   // listen for execution commands
