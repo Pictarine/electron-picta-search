@@ -137,9 +137,9 @@ class ResultList extends Component {
       return
     }
 
-    this.props.onSelectItem(this.props.selectedIndex - 1);
+    this.props.onSelectItem(index);
     this.setState({copiedToClipboard: false}, () => {
-      this.retrieveDetails(this.props.selectedIndex);
+      this.retrieveDetails(index);
     });
   };
   retrieveDetails = index => {
