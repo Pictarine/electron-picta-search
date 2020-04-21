@@ -45,6 +45,7 @@ The assistant can be invoked via the status bar menu or by hitting `option ⌥ +
 
 ## Incoming
 
+* Dropbox preview
 * Local files search integration
 * Better filtering
 * New third parties API integration

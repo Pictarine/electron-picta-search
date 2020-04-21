@@ -6,7 +6,7 @@ const WINDOW_MIN_HEIGHT = 65;
 // results + query + padding
 const WINDOW_MAX_HEIGHT = 710;
 
-const BACKEND_ENDPOINT = 'https://emerix-dot-backend-dot-picta-int.appspot.com'
+const BACKEND_ENDPOINT = 'https://backend-dot-picta-int.appspot.com/'
 
 module.exports = {
   MAX_RESULTS: 40,

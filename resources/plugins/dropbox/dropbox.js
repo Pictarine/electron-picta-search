@@ -56,7 +56,7 @@ module.exports = {
           const item = {
             title: (matches && matches.length > 0) ? matches[0] : path,
             subtitle: meta.client_modified ? `${meta['.tag']} - ${meta.client_modified}` : meta['.tag'],
-            arg: `${BACKEND_ENDPOINT}/service/dropbox/file?file=${encodeURI(path)}`,
+            arg: `https://www.dropbox.com/work${encodeURI(path)}`,
           };
 
           items.push(item);
