@@ -3,9 +3,9 @@ const axios = require('axios');
 
 const store = new Store();
 
-const {
-  BACKEND_ENDPOINT
-} = require('../../../app/constants')
+const pad = (s) => {
+  return (s < 10) ? `0${  s}` : s;
+}
 
 module.exports = {
   action: 'openurl',
@@ -52,10 +52,11 @@ module.exports = {
           const meta = file.metadata.metadata;
           const path = meta.path_display;
           const matches = path.match(/[^\/]+(?=\/$|$)/);
+          const d = new Date(meta.client_modified);
 
           const item = {
             title: (matches && matches.length > 0) ? matches[0] : path,
-            subtitle: meta.client_modified ? `${meta['.tag']} - ${meta.client_modified}` : meta['.tag'],
+            subtitle: meta.client_modified ? `${meta['.tag']} - ${[pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/')}` : meta['.tag'],
             arg: `https://www.dropbox.com/work${encodeURI(path)}`,
           };
 
