@@ -32,7 +32,7 @@ class ResultDetails extends React.PureComponent {
       style({
         boxSizing: 'border-box',
         position: 'absolute',
-        backgroundColor: isDarkModeEnabled ? '#121212' : '#f2f2f2',
+        backgroundColor: isDarkModeEnabled() ? '#121212' : '#fff',
         width: '50%',
         right: '-50%',
         top: 0,

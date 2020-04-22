@@ -7,14 +7,14 @@ import {IPC_WINDOW_SHOW, IPC_WINDOW_HIDE} from '../../../../ipc';
 const {isDarkModeEnabled} = require('../../../../main/utils/helpers');
 
 const base = style({
-  paddingTop: 15,
+  paddingTop: 10,
   paddingRight: 15,
-  paddingBottom: 14,
+  paddingBottom: 10,
   paddingLeft: 15,
+  marginBottom: 32,
   boxSizing: 'border-box',
-  borderBottomColor: '#bbb',
-  borderBottomStyle: 'solid',
-  borderBottomWidth: 1,
+  borderRadius: 3,
+  backgroundColor: isDarkModeEnabled() ? '#121212' : '#fff',
 });
 
 const search = style({
@@ -23,7 +23,7 @@ const search = style({
   boxSizing: 'border-box',
   fontSize: 30,
   marginBottom: 0,
-  color: isDarkModeEnabled ? '#FFF' : '#000',
+  color: isDarkModeEnabled() ? '#FFF' : '#000',
   // paddingBottom: 15,
   outline: 0,
   overflow: 'visible',

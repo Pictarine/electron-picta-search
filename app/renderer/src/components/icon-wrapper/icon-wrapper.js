@@ -11,7 +11,7 @@ const iconImg = style({
   minWidth: 32,
   minHeight: 32,
   objectFit: 'contain',
-  backgroundColor: isDarkModeEnabled ? '#F2F2F2' : 'transparent',
+  backgroundColor: isDarkModeEnabled() ? '#F2F2F2' : 'transparent',
   padding: 4,
 });
 
@@ -19,8 +19,8 @@ const iconImgTextBase = compose(
   iconImg,
   style({
     display: 'block',
-    backgroundColor: isDarkModeEnabled ? '#F2F2F2' : '#888',
-    color: isDarkModeEnabled ? '#000' : '#fff',
+    backgroundColor: isDarkModeEnabled() ? '#F2F2F2' : '#888',
+    color: isDarkModeEnabled() ? '#000' : '#fff',
     textDecoration: 'none',
     textAlign: 'center',
     width: 32,

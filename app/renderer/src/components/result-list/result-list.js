@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import {ipcRenderer} from 'electron';
 import {compose, pseudo, style} from 'glamor';
+
 import {
   IPC_WINDOW_SHOW,
   IPC_WINDOW_RESIZE,
@@ -17,6 +18,8 @@ import {
 /* eslint-disable react/no-array-index-key */
 import ResultItem from '../result-item';
 import ResultDetails from '../result-details';
+
+const {isDarkModeEnabled} = require('../../../../main/utils/helpers');
 
 const base = compose(
   style({
@@ -83,7 +86,7 @@ class ResultList extends Component {
       // update the height
       if (newResults.length) {
         // TODO: compute the height + added padding
-        const height = newResults.length * 60 + 30;
+        const height = newResults.length * 60 + 30 + 32;
         ipcRenderer.send(IPC_WINDOW_RESIZE, {height});
       }
       if (newResults.length) this.props.onUpdateResults(newResults);
@@ -195,7 +198,7 @@ class ResultList extends Component {
     const currItem = this.props.results[this.props.selectedIndex];
     return this.props.results.length ? (
       <div
-        {...style({position: 'relative', paddingTop: 15, paddingBottom: 15})}
+        {...style({position: 'relative', paddingTop: 15, paddingBottom: 15, borderRadius: 3, backgroundColor: isDarkModeEnabled() ? '#121212' : '#fff',})}
       >
         <ol
           {...compose(

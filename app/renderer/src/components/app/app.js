@@ -13,7 +13,6 @@ import ResultList from '../result-list';
 const { isDarkModeEnabled } = require('../../../../main/utils/helpers');
 
 const outerBase = style({
-  backgroundColor: isDarkModeEnabled ? '#121212' : '#f2f2f2',
   boxSizing: 'border-box',
   width: '100%',
   paddingLeft: 3,
@@ -21,8 +20,7 @@ const outerBase = style({
 });
 
 const base = style({
-  backgroundColor: isDarkModeEnabled ? '#121212' : '#f2f2f2',
-  color: isDarkModeEnabled ? '#FFF' : '#121212',
+  color: isDarkModeEnabled() ? '#FFF' : '#121212',
   borderRadius: 3,
   borderWidth: 0,
   boxSizing: 'border-box',

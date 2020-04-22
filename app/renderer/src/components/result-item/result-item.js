@@ -9,7 +9,7 @@ import {
 const { isDarkModeEnabled } = require('../../../../main/utils/helpers');
 
 const activeStyle = {
-  backgroundColor: isDarkModeEnabled ? '#223C5B' : '#3f93fe',
+  backgroundColor: isDarkModeEnabled() ? '#223C5B' : '#3f93fe',
   color: '#ffffff',
 };
 
@@ -18,7 +18,7 @@ const baseHover = hover(activeStyle);
 const base = compose(
   style({
     display: 'flex',
-    color: isDarkModeEnabled ? '#fff' : '#333',
+    color: isDarkModeEnabled() ? '#fff' : '#333',
     boxSizing: 'border-box',
     height: 60,
     margin: 0,

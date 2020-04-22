@@ -233,7 +233,7 @@ const handleQueryCommand = (evt, {q: queryPhrase}, plugins) => {
       .slice(0, MAX_RESULTS);
 
     // send the results back to the renderer
-    if (keyword === query)
+    if (fractions.join(' ') === query)
       evt.sender.send(IPC_QUERY_RESULTS, retval || []);
   });
 };
