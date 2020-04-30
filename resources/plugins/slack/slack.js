@@ -45,7 +45,7 @@ module.exports = {
          const item = {
             title: mess.text,
             subtitle: `From ${mess.username}`,
-            arg: mess.permalink,
+            arg: `slack://channel?team=${mess.team}&id=${mess.channel.id}&message=${mess.ts}`,
           };
 
           items.push(item);

@@ -69,7 +69,7 @@ module.exports = {
 
       })
 
-      resolve({items: items});
+      resolve({items: items.slice(0, 20)});
 
     }).catch(err => {
       resolve({items: []});
