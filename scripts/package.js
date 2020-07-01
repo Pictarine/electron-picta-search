@@ -3,7 +3,9 @@ const packager = require('electron-packager');
 const chalk = require('chalk');
 const signAsync = require('electron-osx-sign').signAsync
 const { notarize } = require('electron-notarize');
+const signingFolder = '/path/to/signing/folder'
 const pkg = require('../package.json')
+const signingConf = require(path.resolve(signingFolder,'signing.json'))
 
 const DEFAULT_OPTIONS = {
   name: pkg.name,
@@ -12,7 +14,7 @@ const DEFAULT_OPTIONS = {
   icon: path.resolve(__dirname, '..', 'resources', 'icon.icns'),
   overwrite: true,
   prune: true,
-  appBundleId: 'com.pictarine.pictasearch',
+  appBundleId: signingConf.appBundleId,
   ignore: [
     '__mocks__/',
     'docs/.*.md',
@@ -29,21 +31,21 @@ const DEFAULT_OPTIONS = {
     'webpack.config.dev.js',
   ],
   osxSign: {
-    'provisioning-profile': path.resolve(__dirname, '..', 'embedded.provisionprofile'),
-    identity: process.env.identity,
-    entitlements: path.resolve(__dirname, '..', 'entitlements.mac.plist'),
-    'entitlements-inherit': path.resolve(__dirname, '..', 'entitlements.inherit.mac.plist'),
+    'provisioning-profile': path.resolve(signingFolder, signingConf.provisioningProfile),
+    identity: signingConf.identity,
+    entitlements: path.resolve(signingFolder, signingConf.entitlements),
+    'entitlements-inherit': path.resolve(signingFolder, signingConf.entitlementsInherit),
     type: 'development',
     platform: 'darwin',
     'gatekeeper-assess': true,
-    'hardened-runtime': true,
+    hardenedRuntime: true,
     app: path.resolve(__dirname, '..', 'dist', 'package', `${pkg.name}-darwin-x64`, `${pkg.name}.app`)
   },
   osxNotarize: {
-    appBundleId: 'com.pictarine.pictasearch',
+    appBundleId: signingConf.appBundleId,
     appPath: path.resolve(__dirname, '..', 'dist', 'package', `${pkg.name}-darwin-x64`, `${pkg.name}.app`),
-    appleId: process.env.appleId,
-    appleIdPassword: process.env.appleIdPassword,
+    appleId: signingConf.appleId,
+    appleIdPassword: signingConf.appleIdPassword,
   }
 };
 
