@@ -44,6 +44,8 @@ module.exports = {
 
     osApps.getAll()
       .then((apps) => {
+        // console.log("app", apps[0])
+        apps.push('/System/Applications/Utilities/Screenshot.app')
         const q = query.toLowerCase();
         const itemPromises = [];
         // eslint-disable-next-line no-plusplus
