@@ -77,7 +77,7 @@
     "webpack-merge": "^4.1.0"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "browser-bookmarks": "^0.3.0",
     "buffer": "^5.6.0",
     "deep-assign": "^3.0.0",
