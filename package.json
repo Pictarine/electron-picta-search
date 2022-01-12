@@ -87,7 +87,7 @@
     "file-icon": "^3.1.0",
     "glamor": "^2.20.40",
     "googleapis": "^48.0.0",
-    "markdown-it": "^10.0.0",
+    "markdown-it": "^12.3.2",
     "mathjs": "^6.6.2",
     "npm": "^6.14.4",
     "os-apps": "^0.2.1",
